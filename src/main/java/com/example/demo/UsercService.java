@@ -14,8 +14,8 @@ public class UsercService {
 		return mapper.selectAll();
 	}
 	
-	public List<Userc> selectById(int id) {
-		return mapper.selectById(id);
+	public List<Userc> selectById(int id,String password) {
+		return mapper.selectById(id,password);
 	}
 	
 	public void insert(Userc Userc) {
@@ -29,4 +29,6 @@ public class UsercService {
 	public void delete(int id) {
 		mapper.delete(id);
 	}
+
+	
 }

@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="sendlogin.css">
 <title>Send001</title>
 </head>
 <body>
-	<h1>ログイン</h1>
-<form action ="/mainmenu" method="post">
-	ID:<input type="id" name="id"><br>
-	パスワード:<input type="password" name="pass"><br>
 	
-<br>
-<input type ="submit" value="ログイン">
-</form><a href ="seventh">戻る</a>
-
+	<table th:if="${userc} != null" border="1">
+			<tr>
+				<th>ユーザーID</th>
+				<th>パスワード</th>
+			</tr>
+			<tr th:each="userc: ${usercs}">
+				<td th:text="${userc.id}"></td>
+				<td th:text="${userc.password}"></td>
+			</tr>
+		</table>
+		<div th:if="${usercs} == null">
+			レコードがありません
+			
+			<p><span th:text="${#dates.format(#dates.createNow(),'yyyy-MM-dd HH:mm:ss')}"></span></p>
 </body>
 </html>

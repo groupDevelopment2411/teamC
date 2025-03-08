@@ -14,17 +14,17 @@ public interface UsercMapper {
 
 	@Select("SELECT * FROM usercs")
 	List<Userc> selectAll();
-	
+
 	@Select("SELECT * FROM usercs WHERE id = #{id}")
-	List<Userc> selectById(int id);
-	
-	@Insert("INSERT INTO usercs VALUES(#{id}, #{name}, #{password})")
+	List<Userc> selectById(int id, String password);
+
+	@Insert("INSERT INTO usercs VALUES(#{id}, #{name}, #{password},#{age},#{start DATE},#{end DATE})")
 	void insert(Userc userc);
-	
+
 	@Update("UPDATE usercs SET name= #{name}, password = #{password} WHERE id = #{id}")
 	void update(Userc userc);
-	
-	@Delete("DELETE FROM usercs WHERE id = #{id}")
-	void delete(int id) ;
-}
 
+	@Delete("DELETE FROM usercs WHERE id = #{id}")
+	void delete(int id);
+
+}
