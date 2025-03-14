@@ -23,18 +23,15 @@ public class UsercController {
 		return "selectAll";
 	}
 
-	@RequestMapping("/sendlogin")
-	public String sendlogin() {
-		return "sendlogin";
-	}
 
-	@RequestMapping("/loginpage")
+	@RequestMapping("/sendlogin")
 	public String getMatchIdUserc(
 			Model m,
-			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+			@RequestParam("id") String id) {
 		int numId = Integer.parseInt(id);
-		List<Userc> usercs = service.selectById(numId, password);
+		System.out.println(numId);
+		
+		List<Userc> usercs = service.selectById(numId);
 
 		if (usercs.size() == 0) {
 			usercs = null;
@@ -42,46 +39,11 @@ public class UsercController {
 
 		m.addAttribute("userc", usercs);
 
-		return "loginpage";
+		return "mainmenu";
+	
 	}
 
-	@RequestMapping("/insertForm")
-	public String insertForm() {
-		return "insertForm";
-	}
-
-	@PostMapping("/insert")
-	public String insertUserc(
-			Model m,
-			@RequestParam("id") String id,
-			@RequestParam("name") String name,
-			@RequestParam("password") String password) {
-		int numId = Integer.parseInt(id);
-		Userc userc = new Userc(numId, name, password);
-		service.insert(userc);
-		m.addAttribute("msg", "登録が正常に完了しました");
-
-		return "result";
-	}
-
-	@RequestMapping("/updateForm")
-	public String updateForm() {
-		return "updateForm";
-	}
-
-	@PostMapping("/update")
-	public String update(
-			Model m,
-			@RequestParam("id") String id,
-			@RequestParam("name") String name,
-			@RequestParam("password") String password) {
-		int numId = Integer.parseInt(id);
-		Userc userc = new Userc(numId, name, password);
-		service.update(userc);
-		m.addAttribute("msg", "更新が正常に完了しました");
-
-		return "result";
-	}
+	
 
 	@RequestMapping("/deleteForm")
 	public String deleteForm() {
