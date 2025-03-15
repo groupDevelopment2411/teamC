@@ -14,8 +14,8 @@ public interface UsercMapper {
 	@Select("SELECT * FROM userc")
 	List<Userc> selectAll();
 
-	@Select("SELECT * FROM userc WHERE id = #{id}")
-	List<Userc> selectById(int id);
+	@Select("SELECT  FROM userc id=#{id},password=#{password}")
+	List<Userc> selectByIdAndPassword(int id,String password);
 
 
 	@Delete("DELETE FROM userc WHERE id = #{id}")

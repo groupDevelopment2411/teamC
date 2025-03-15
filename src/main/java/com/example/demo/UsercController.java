@@ -23,15 +23,15 @@ public class UsercController {
 		return "selectAll";
 	}
 
-
 	@RequestMapping("/sendlogin")
 	public String getMatchIdUserc(
 			Model m,
-			@RequestParam("id") String id) {
+			@RequestParam("id") String id,
+			@RequestParam("password") String password) {
 		int numId = Integer.parseInt(id);
 		System.out.println(numId);
-		
-		List<Userc> usercs = service.selectById(numId);
+
+		List<Userc> usercs = service.selectByIdAndPassword(numId, password);
 
 		if (usercs.size() == 0) {
 			usercs = null;
@@ -40,10 +40,8 @@ public class UsercController {
 		m.addAttribute("userc", usercs);
 
 		return "mainmenu";
-	
-	}
 
-	
+	}
 
 	@RequestMapping("/deleteForm")
 	public String deleteForm() {

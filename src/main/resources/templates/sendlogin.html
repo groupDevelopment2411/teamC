@@ -3,7 +3,6 @@
 "xmlns="http://www.w3.org/1999/xhtml]">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/sendlogin.css">
 <title>Send001</title>
 </head>
 <body>
@@ -15,6 +14,7 @@
 			</tr>
 			<tr th:each="userc: ${usercs}">
 				<td th:text="${userc.id}"></td>
+				<td th:text="${userc.password}"></td>
 			
 			</tr>
 		</table>

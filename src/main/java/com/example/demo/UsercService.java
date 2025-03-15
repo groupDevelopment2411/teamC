@@ -14,8 +14,8 @@ public class UsercService {
 		return mapper.selectAll();
 	}
 
-	public List<Userc> selectById(int id) {
-		return mapper.selectById(id);
+	public List<Userc> selectByIdAndPassword(int id,String password) {
+		return mapper.selectByIdAndPassword(id,password);
 	}
 
 	public void delete(int id) {
