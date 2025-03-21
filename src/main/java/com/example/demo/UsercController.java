@@ -34,21 +34,25 @@ public class UsercController {
 			Model m,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password) {
+		System.out.println(id);
+		System.out.println(password);
 
 		if (id.isEmpty() || password.isEmpty()) {
 			m.addAttribute("msg", "未入力の項目があります");
-			return "index";
+			return "loginform";
 		}
 
 		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
 		if (usercs.size() == 0) {
 			usercs = null;
+			m.addAttribute("msg", "入力に誤りがあります");
+			return "loginform";
 		}
 
 		m.addAttribute("usercs", usercs);
 
-		return "sendlogin";
+		return "mainmenu";
 
 	}
 
