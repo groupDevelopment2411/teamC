@@ -7,21 +7,12 @@
 </head>
 <body>
 	
-	<table th:if="${usercs} != null" border="1">
-			<tr>
-				<th>ユーザーID</th>
-				<th>パスワード</th>
-			</tr>
-			<tr th:each="userc: ${usercs}">
-				<td th:text="${userc.id}"></td>
-				<td th:text="${userc.password}"></td>
-			
-			</tr>
-		</table>
-		<div th:if="${usercs} == null">
-			レコードがありません</div>
-			
-			<p><span th:text="${#dates.format(#dates.createNow(),'yyyy-MM-dd HH:mm:ss')}"></span></p>
+	<div th:if="${userc} != null">
+			<meta http-equiv="refresh" content="0;http://localhost:8080/mainmenu">
+			</meta>
+		</div>
+		<div th:if="${userc}== null">登録情報がありません</div>
+		<a href="">戻る</a>
 </body>
 </html>
 

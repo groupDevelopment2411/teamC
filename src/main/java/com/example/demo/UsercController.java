@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,23 +24,37 @@ public class UsercController {
 		return "selectAll";
 	}
 
+	
+	
+	@GetMapping("/sendlogin")
+	public String sendlogin(
+			@RequestParam("id") String id,
+			@RequestParam("password") String password) {
+
+		return "sendlogin";
+	}
+
 	@RequestMapping("/sendlogin")
-	public String getMatchIdUserc(
+	public String sarchIdAndPassword(
 			Model m,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password) {
-		int numId = Integer.parseInt(id);
-		System.out.println(numId);
+		
+		
 
-		List<Userc> usercs = service.selectByIdAndPassword(numId, password);
+		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+
+		if (id.isEmpty() || password.isEmpty()) {
+			return "loginpage";
+		}
 
 		if (usercs.size() == 0) {
 			usercs = null;
 		}
 
-		m.addAttribute("userc", usercs);
+		m.addAttribute("usercs", usercs);
 
-		return "mainmenu";
+		return "sendlogin";
 
 	}
 

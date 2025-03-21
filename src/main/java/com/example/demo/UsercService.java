@@ -13,13 +13,12 @@ public class UsercService {
 	public List<Userc> selectAll() {
 		return mapper.selectAll();
 	}
-
-	public List<Userc> selectByIdAndPassword(int id,String password) {
-		return mapper.selectByIdAndPassword(id,password);
-	}
-
+	
 	public void delete(int id) {
 		mapper.delete(id);
 	}
 
-}
+	public List<Userc> findUsercByIdAndPassword(String numId, String password){
+		return mapper.findUsercByIdAndPassword(numId,password);}
+	}
+
