@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,29 +23,24 @@ public class UsercController {
 		return "selectAll";
 	}
 
-	
-	
-	@GetMapping("/sendlogin")
-	public String sendlogin(
-			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+	@RequestMapping("/loginform")
+	public String loginform() {
+		return "index";
 
-		return "sendlogin";
 	}
 
-	@RequestMapping("/sendlogin")
+	@PostMapping("/sendlogin")
 	public String sarchIdAndPassword(
 			Model m,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password) {
-		
-		
-
-		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
 		if (id.isEmpty() || password.isEmpty()) {
-			return "loginpage";
+			m.addAttribute("msg", "未入力の項目があります");
+			return "index";
 		}
+
+		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
 		if (usercs.size() == 0) {
 			usercs = null;
