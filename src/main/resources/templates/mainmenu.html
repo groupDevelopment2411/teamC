@@ -6,10 +6,24 @@
 </head>
 <body>
 <html>
-めいんめにゅうです]]
-
-		<tr th:each="userc: ${usercs}">
+めいんめにゅうです
+<tr th:each="userc: ${usercs}">
 			<td th:text="${userc.name}+さん"></td>
 			<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 </tr>
+
+<h1>トップメニュー</h1>
+	
+
+	<div class ="container">
+    <div class="item">社員情報検索</div>
+	<div class="item">社員情報削除</div>
+	<div class="item">社員情報登録</div>
+	<div class="item">社員情報更新</div>
+	</div>
+
+
+	Copyright🄫teamc 2025
+
 </html>
+</body>
