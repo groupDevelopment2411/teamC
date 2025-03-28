@@ -20,5 +20,10 @@ public class UsercService {
 
 	public List<Userc> findUsercByIdAndPassword(String numId, String password){
 		return mapper.findUsercByIdAndPassword(numId,password);}
+
+	public List<Userc> selectByName(String name) {
+		// TODO 自動生成されたメソッド・スタブ
+		return mapper.selectByName(name);
+	}
 	}
 

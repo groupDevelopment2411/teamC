@@ -11,8 +11,12 @@
 			<meta http-equiv="refresh" content="0;http://localhost:8080/mainmenu">
 			</meta>
 		</div>
-		<div th:if="${userc}== null">入力内容に誤りがあります</div>
-		<a href="">戻る</a>
+		<div th:if="${userc}== null">
+		
+		<script>
+		alert('入力内容に誤りがあります');
+				  </script>
+		<a href="">戻る</a></div>
 </body>
 </html>
 

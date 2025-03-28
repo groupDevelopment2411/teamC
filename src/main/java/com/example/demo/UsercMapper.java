@@ -15,8 +15,13 @@ public interface UsercMapper {
 
 	@Select("SELECT * FROM userc WHERE id = #{numId} AND password =#{password}")
 	List<Userc> findUsercByIdAndPassword(String numId, String password);
+	
+	@Select("SELECT * FROM userc WHERE name = #{name}")
+	List<Userc> selectByName(String name);
 
-	@Delete("DELETE FROM userczs WHERE id = #{id}")
+	@Delete("DELETE FROM userc WHERE id = #{id}")
 	void delete(int id);
+
+
 
 }
