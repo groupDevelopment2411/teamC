@@ -3,27 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<link th:href="@{/style/tymleaf.css}" rel="stylesheet">
+
 </head>
 <body>
 <html>
-めいんめにゅうです
-<tr th:each="userc: ${usercs}">
+<header>
+<div tr th:each="userc: ${usercs}">
 			<td th:text="${userc.name}+さん"></td>
 			<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
-</tr>
+</tr></div>
 
 <h1>トップメニュー</h1>
-	
+<div class=line></div>
+</header>
 
 	<div class ="container">
-    <div class="item">社員情報検索</div>
-	<div class="item">社員情報削除</div>
-	<div class="item">社員情報登録</div>
-	<div class="item">社員情報更新</div>
+    <div class="item"><a href ="second">社員情報検索</a></div>
+	<div class="item"><a href ="first">社員情報削除</a></div>
+	<div class="item"><a href ="http://localhost:8080/insert">社員情報登録</a></div>
+	<div class="item"><a href ="http://localhost:8080/upsate">社員情報更新</a></div>
 	</div>
 
 
-	Copyright🄫teamc 2025
+	<footer> Copyright🄫teamc 2025</footer>
 
 </html>
 </body>

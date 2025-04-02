@@ -23,6 +23,16 @@ public class UsercController {
 		this.session = session;
 	}
 
+	@RequestMapping("/first")
+	public String first() {
+		return "delete";
+	}
+
+	@RequestMapping("/second")
+	public String second() {
+		return "kensaku";
+	}
+
 	@RequestMapping("/selectAll")
 	public String getAllUserc(Model m) {
 		List<Userc> usercs = service.selectAll();
@@ -46,8 +56,12 @@ public class UsercController {
 		this.session.setAttribute("id", id);
 		this.session.setAttribute("password", password);
 
-		if (id.isEmpty() || password.isEmpty()) {
-			m.addAttribute("msg", "未入力の項目があります");
+		//if (id.isEmpty() || password.isEmpty()) {
+		
+		
+		 @NotNull( message = "{未入力の項目があります")
+		 private String id
+			//m.addAttribute("msg", "未入力の項目があります");
 			return "loginform";
 		}
 
@@ -63,11 +77,6 @@ public class UsercController {
 
 		return "mainmenu";
 
-	}
-
-	@RequestMapping("/deleteForm")
-	public String deleteForm() {
-		return "deleteForm";
 	}
 
 	@PostMapping("/delete")

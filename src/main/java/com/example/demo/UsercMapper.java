@@ -22,6 +22,8 @@ public interface UsercMapper {
 	@Delete("DELETE FROM userc WHERE id = #{id}")
 	void delete(int id);
 
+	
+
 
 
 }
