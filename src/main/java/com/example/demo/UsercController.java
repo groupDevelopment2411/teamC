@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
-
+import org.springframework.validation.annotation.Validated;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +56,10 @@ public class UsercController {
 		this.session.setAttribute("id", id);
 		this.session.setAttribute("password", password);
 
-		//if (id.isEmpty() || password.isEmpty()) {
+		if (id.isEmpty() || password.isEmpty()) {
+			m.addAttribute("msg", "未入力の項目があります");}
 		
 		
-		 @NotNull( message = "{未入力の項目があります")
-		 private String id
-			//m.addAttribute("msg", "未入力の項目があります");
-			return "loginform";
-		}
-
 		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
 		if (usercs.size() == 0) {
@@ -72,12 +67,11 @@ public class UsercController {
 			m.addAttribute("msg", "入力に誤りがあります");
 			return "loginform";
 		}
-
 		m.addAttribute("usercs", usercs);
 
-		return "mainmenu";
-
-	}
+		return "mainmenu";}
+	
+	
 
 	@PostMapping("/delete")
 	public String delete(
