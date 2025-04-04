@@ -8,13 +8,17 @@
 <body>
 <header><h1>社員情報削除(確認)<h1></header>
 
-<form action="/deleteform" method="post">
-		ID：<input type="text" name="id" th:value="${userc.id} readonly>
-		
-		<input type="submit" value="削除">
-		
-	</form>
-	<input type="submit" value="戻る">
 	
+
+			<form action="/deleteform" method="post">
+			<tr th:each="userc: ${usercs}">
+
+			
+			    <input type="hidden" name="selectedIds" th:value="${userc.id}" />
+			    <p>本当に削除しますか？（ID: <span th:text="${userc.id}"></span>）</p>
+			    <input type="submit" value="削除">
+			</form>
+
 </body>
 </html>
+

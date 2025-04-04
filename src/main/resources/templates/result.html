@@ -16,7 +16,7 @@
 			</tr>
 			<tr th:each="userc: ${usercs}">
 				
-				<td><input type="checkbox" name="selectedIds" th:value="${userc.name}"></td>
+				<td><input type="checkbox" name="selectedIds" th:value="${userc.id}"></td>
 				           <td th:text="${userc.id}"></td>
 				           <td th:text="${userc.name}"></td>
 							<td th:text="${userc.password}"></td>

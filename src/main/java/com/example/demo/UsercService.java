@@ -28,9 +28,19 @@ public class UsercService {
 	public List<Userc> findUsercByIdAndPassword(String numId, String password) {
 		return mapper.findUsercByIdAndPassword(numId, password);}
 
-	public List<Userc> searchUsercByName(String name) {
-		 return mapper.searchUsercByName(name);}
-	}
+	public List<Userc> searchUsercById(int id) {
+		 return mapper.searchUsercById(id);}
+	
 
+public void deleteUsercsByIds(List<Integer> ids) {
+    mapper.deleteUsercsByIds(ids);
+}
+
+public List<Userc> getAllUsercs() {
+	// TODO 自動生成されたメソッド・スタブ
+	return null;
+}
+
+}
 
 

@@ -37,9 +37,9 @@ public class UsercController {
 
 	
 	@RequestMapping("/kensakuform")
-	public String searchUsercByName(Model m,
-		@RequestParam("name") String name) {
-		List<Userc> usercs = service.searchUsercByName(name);
+	public String searchUsercById(Model m,
+		@RequestParam("id") int id) {
+		List<Userc> usercs = service.searchUsercById(id);
 
 		m.addAttribute("usercs", usercs);
 
@@ -78,7 +78,47 @@ public class UsercController {
 		return "mainmenu";}
 	
 
+
+	@RequestMapping("/result")
+	public String result() {
+		return "delete";}
 	
+	
+	@PostMapping("/deleteform")
+	public String deleteSelectedUsers(
+	    @RequestParam(value = "selectedIds", required = false) List<String> selectedIds,  // 🔥 String に変更
+	    Model m,
+	    HttpSession session) {
+
+	    Object sessionIdObj = session.getAttribute("id");
+	    if (sessionIdObj == null) {
+	        m.addAttribute("msg", "ログインしていません。");
+	        return "delete";
+	    }
+
+	    if (selectedIds == null || selectedIds.isEmpty()) {
+	       // m.addAttribute("msg", "削除する項目を選択してください。");
+	    } else {
+	        // 数値のIDだけを抽出して変換
+	        List<Integer> filteredIds = selectedIds.stream()
+	            .filter(id -> id.matches("\\d+")) // 🔥 数字のみのデータを抽出
+	            .map(Integer::parseInt) // 🔥 int に変換
+	            .toList();
+
+	        if (filteredIds.isEmpty()) {
+	            m.addAttribute("msg", "有効なIDが選択されていません。");
+	        } else {
+	            service.deleteUsercsByIds(filteredIds);
+	            m.addAttribute("msg", "選択したユーザーを削除しました。");
+	        }
+	    }
+
+	    // 残っているユーザーを表示
+	    List<Userc> remainingUsercs = service.getAllUsercs();
+	    m.addAttribute("usercs", remainingUsercs);
+
+	    return "deleteresult";
+	}
 
 	    
 

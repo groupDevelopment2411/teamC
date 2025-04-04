@@ -23,6 +23,20 @@ public interface UsercMapper {
 
 		
 	@Select
-	("SELECT * FROM userc WHERE name LIKE CONCAT('%', #{name}, '%')")
-    List<Userc> searchUsercByName(@Param("name") String name) ;
+	("SELECT * FROM userc WHERE id LIKE CONCAT('%', #{id}, '%')")
+
+	List<Userc> searchUsercById(@Param("id") int id) ;
+	
+	
+	@Delete({
+	    "<script>",
+	    "DELETE FROM userc WHERE id IN ",
+	    "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
+	    "#{id}",
+	    "</foreach>",
+	    "</script>"
+	})
+	void deleteUsercsByIds(@Param("ids") List<Integer> ids);
+
 }
+
