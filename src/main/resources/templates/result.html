@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/delete" method="post">
+	<table border="1">
+			<tr>
+				<th></th>
+				<th>ユーザーID</th>
+				<th>ユーザー名</th>
+				<th>パスワード</th>
+			</tr>
+			<tr th:each="userc: ${usercs}">
+				
+				<td><input type="checkbox" name="selectedIds" th:value="${userc.name}"></td>
+				           <td th:text="${userc.id}"></td>
+				           <td th:text="${userc.name}"></td>
+							<td th:text="${userc.password}"></td>
+						  </tr>
+		</table>
+		<input type ="submit" value="削除">
+		</form>
+					<a href ="index">戻る</a>
+</body>
+</html>

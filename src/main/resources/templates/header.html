@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<link th:href="@{/style/tymleaf.css}" rel="stylesheet">
+</head>
+<body>
+	<header>
+	<div tr th:each="userc: ${usercs}">
+				<td th:text="${userc.name}+さん"></td>
+				<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+	</tr></div>
+
+	<h1>トップメニュー</h1>
+	<div class=line></div>
+	</header>
+	
+</body>
+</html>

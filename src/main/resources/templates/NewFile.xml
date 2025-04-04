@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<select id="Userc" parameterType="Userc">
+    select * from Userc (id)
+    values
+    <if userc="id != null and id != ''">
+        (#{id})
+    </if>
+</select>

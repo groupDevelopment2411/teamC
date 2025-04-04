@@ -1,6 +1,11 @@
 package com.example.demo;
 
+import jakarta.validation.constraints.NotNull;
+
+import lombok.Data;
+@Data
 public class Userc {
+	@NotNull(message = "Id cannot be null")
 	private int id;
 	private String name;
 	private String password;
@@ -37,3 +42,5 @@ public class Userc {
 		this.password = password;
 	}
 }
+
+

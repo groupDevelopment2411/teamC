@@ -2,15 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
 <title>Insert title here</title>
 </head>
 <body>
-<header>社員情報削除(確認)</header>
+<header><h1>社員情報削除(確認)<h1></header>
 
-
-社員ID
-削除
-戻る
-
+<form action="/deleteform" method="post">
+		ID：<input type="text" name="id" th:value="${userc.id} readonly>
+		
+		<input type="submit" value="削除">
+		
+	</form>
+	<input type="submit" value="戻る">
+	
 </body>
 </html>

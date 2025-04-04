@@ -2,24 +2,35 @@ package com.example.demo;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Service
 public class UsercService {
+	
+	public void createUserc(@Valid Userc userc) {}
 	@Autowired
 	private UsercMapper mapper;
+	public List<Userc> getAllUserc;
 
 	public List<Userc> selectAll() {
 		return mapper.selectAll();
 	}
-	
-	public void delete(int id) {
-		mapper.delete(id);
+
+	public void delete(int ids) {
+		mapper.delete(ids);
 	}
 
-	public List<Userc> findUsercByIdAndPassword(String numId, String password){
-		return mapper.findUsercByIdAndPassword(numId,password);}
+	public List<Userc> findUsercByIdAndPassword(String numId, String password) {
+		return mapper.findUsercByIdAndPassword(numId, password);}
 
+	public List<Userc> searchUsercByName(String name) {
+		 return mapper.searchUsercByName(name);}
 	}
+
+
 

@@ -1,33 +1,12 @@
-
-<!-- multiCheckboxForm.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>チェックボックスフォーム</title>
 </head>
 <body>
-  <form th:action="@{/submitMultiCheckboxForm}" th:object="${multiCheckboxForm}" method="post">
-    <div>
-      <label>
-        <input type="checkbox" th:field="*{selectedOptions}" value="Option1"/>
-        オプション1
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="checkbox" th:field="*{selectedOptions}" value="Option2"/>
-        オプション2
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="checkbox" th:field="*{selectedOptions}" value="Option3"/>
-        オプション3
-      </label>
-    </div>
-    <div>
-      <button type="submit">送信</button>
-    </div>
-  </form>
+	<form action="/kensakuform" method="post">
+			名前：<input type="text" name="name">
+			<input type="submit" value="検索">
+				</form>
 </body>
 </html>

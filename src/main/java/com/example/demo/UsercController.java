@@ -1,18 +1,20 @@
 package com.example.demo;
 
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+@Validated
 @Controller
 public class UsercController {
+	
 	@Autowired
 	private UsercService service;
 
@@ -33,15 +35,19 @@ public class UsercController {
 		return "kensaku";
 	}
 
-	@RequestMapping("/selectAll")
-	public String getAllUserc(Model m) {
-		List<Userc> usercs = service.selectAll();
+	
+	@RequestMapping("/kensakuform")
+	public String searchUsercByName(Model m,
+		@RequestParam("name") String name) {
+		List<Userc> usercs = service.searchUsercByName(name);
 
 		m.addAttribute("usercs", usercs);
 
-		return "selectAll";
+		return "result";
 	}
-
+	
+	
+	
 	@RequestMapping("/loginform")
 	public String loginform() {
 		return "index";
@@ -56,8 +62,8 @@ public class UsercController {
 		this.session.setAttribute("id", id);
 		this.session.setAttribute("password", password);
 
-		if (id.isEmpty() || password.isEmpty()) {
-			m.addAttribute("msg", "未入力の項目があります");}
+		//if (id.isEmpty() || password.isEmpty()) {
+			//m.addAttribute("msg", "未入力の項目があります");}
 		
 		
 		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
@@ -71,16 +77,11 @@ public class UsercController {
 
 		return "mainmenu";}
 	
+
 	
 
-	@PostMapping("/delete")
-	public String delete(
-			Model m,
-			@RequestParam("id") String id) {
-		int numId = Integer.parseInt(id);
-		service.delete(numId);
-		m.addAttribute("msg", "削除が正常に完了しました");
+	    
 
-		return "result";
-	}
+	    
+
 }
