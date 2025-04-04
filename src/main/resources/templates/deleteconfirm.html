@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>削除確認</title>
+</head>
+<body>
+    <header><h1>社員情報削除(確認)</h1></header>
+    
+    <p>本当に削除しますか？</p>
+
+    <form action="/delete" method="post">
+		>社員ID: 			
+        <input type="text" name="selectedIds" th:each="id : ${selectedIds}" th:value="${id}" readonly>
+        <input type="submit" value="削除">
+    </form>
+
+    <form action="/userlist" method="get">
+        
+		<a href="/fifth"><button>キャンセル</button></a>
+    </form>
+
+</body>
+</html>

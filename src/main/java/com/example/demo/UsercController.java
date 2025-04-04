@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 @Validated
 @Controller
 public class UsercController {
@@ -35,93 +37,97 @@ public class UsercController {
 		return "kensaku";
 	}
 
-	
-	@RequestMapping("/kensakuform")
-	public String searchUsercById(Model m,
-		@RequestParam("id") int id) {
-		List<Userc> usercs = service.searchUsercById(id);
-
-		m.addAttribute("usercs", usercs);
-
-		return "result";
+	@RequestMapping("/third")
+	public String third() {
+		return "index";
 	}
 	
+	@RequestMapping("/fourth")
+	public String fourth() {
+		return "mainmenu";
+	}
 	
+	@RequestMapping("/fifth")
+	public String fifth() {
+		return "deleteconfirm";
+	}
 	
+	@RequestMapping("/kensakuform")
+	public String searchUsercById(Model m, @RequestParam("id") int id) {
+		List<Userc> usercs = service.searchUsercById(id);
+		m.addAttribute("usercs", usercs);
+		return "result";
+	}
+
 	@RequestMapping("/loginform")
 	public String loginform() {
 		return "index";
-
 	}
 
 	@PostMapping("/sendlogin")
-	public String sarchIdAndPassword(
-			Model m,
-			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+	public String searchIdAndPassword(Model m,
+	                                  @RequestParam("id") String id,
+	                                  @RequestParam("password") String password) {
 		this.session.setAttribute("id", id);
 		this.session.setAttribute("password", password);
 
-		//if (id.isEmpty() || password.isEmpty()) {
-			//m.addAttribute("msg", "未入力の項目があります");}
-		
-		
 		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-		if (usercs.size() == 0) {
-			usercs = null;
+		if (usercs.isEmpty()) {
 			m.addAttribute("msg", "入力に誤りがあります");
 			return "loginform";
 		}
 		m.addAttribute("usercs", usercs);
 
-		return "mainmenu";}
-	
+		return "mainmenu";
+	}
 
-
-	@RequestMapping("/result")
-	public String result() {
-		return "delete";}
-	
-	
-	@PostMapping("/deleteform")
-	public String deleteSelectedUsers(
-	    @RequestParam(value = "selectedIds", required = false) List<String> selectedIds,  // 🔥 String に変更
-	    Model m,
-	    HttpSession session) {
-
-	    Object sessionIdObj = session.getAttribute("id");
-	    if (sessionIdObj == null) {
-	        m.addAttribute("msg", "ログインしていません。");
-	        return "delete";
-	    }
+	/** 🔥 削除の確認画面を表示 */
+	@PostMapping("/deleteconfirm")
+	public String confirmDelete(
+	    @RequestParam(value = "selectedIds", required = false) List<String> selectedIds,
+	    Model m) {
 
 	    if (selectedIds == null || selectedIds.isEmpty()) {
-	       // m.addAttribute("msg", "削除する項目を選択してください。");
-	    } else {
-	        // 数値のIDだけを抽出して変換
-	        List<Integer> filteredIds = selectedIds.stream()
-	            .filter(id -> id.matches("\\d+")) // 🔥 数字のみのデータを抽出
-	            .map(Integer::parseInt) // 🔥 int に変換
-	            .toList();
-
-	        if (filteredIds.isEmpty()) {
-	            m.addAttribute("msg", "有効なIDが選択されていません。");
-	        } else {
-	            service.deleteUsercsByIds(filteredIds);
-	            m.addAttribute("msg", "選択したユーザーを削除しました。");
-	        }
+	        m.addAttribute("msg", "削除する項目を選択してください。");
+	        return "fifth";
 	    }
 
-	    // 残っているユーザーを表示
+	    // 数値のみのIDを抽出して変換
+	    List<Integer> filteredIds = selectedIds.stream()
+	        .filter(id -> id.matches("\\d+"))
+	        .map(Integer::parseInt)
+	        .collect(Collectors.toList());
+
+	    if (filteredIds.isEmpty()) {
+	        m.addAttribute("msg", "有効なIDが選択されていません。");
+	        return "userlist";
+	    }
+
+	    List<Userc> selectedUsercs = service.findUsersByIds(filteredIds);
+	    m.addAttribute("selectedUsercs", selectedUsercs);
+	    m.addAttribute("selectedIds", filteredIds); // 🔥 削除処理で使う
+
+	    return "deleteconfirm"; // 確認画面へ
+	}
+
+	/** 🔥 実際に削除処理を実行 */
+	@PostMapping("/delete")
+	public String deleteUsers(
+	    @RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
+	    Model m) {
+
+	    if (selectedIds == null || selectedIds.isEmpty()) {
+	        m.addAttribute("msg", "削除する項目が選択されていません。");
+	        return "deleteresult";
+	    }
+
+	    service.deleteUsercsByIds(selectedIds);
+	    m.addAttribute("msg", "選択したユーザーを削除しました。");
+
 	    List<Userc> remainingUsercs = service.getAllUsercs();
 	    m.addAttribute("usercs", remainingUsercs);
 
-	    return "deleteresult";
+	    return "deleteresult"; // 削除結果画面へ
 	}
-
-	    
-
-	    
-
 }

@@ -41,6 +41,11 @@ public List<Userc> getAllUsercs() {
 	return null;
 }
 
+public List<Userc> findUsersByIds(List<Integer> selectedIds) {
+	// TODO 自動生成されたメソッド・スタブ
+	return null;
+}
+
 }
 
 
