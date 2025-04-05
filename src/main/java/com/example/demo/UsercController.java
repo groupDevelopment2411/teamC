@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,32 +59,42 @@ public class UsercController {
 		m.addAttribute("usercs", usercs);
 		return "result";
 	}
-
-	@RequestMapping("/loginform")
-	public String loginform() {
-		return "index";
+	
+	@GetMapping("/login")
+	public String showLoginForm(Model model) {
+	    model.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
+	    return "loginform"; // 👈 `loginform.html` に遷移
 	}
-	
-
-	
+	@RequestMapping("/loginform")
+	public String loginform(Model model) {
+	    model.addAttribute("userc", new Userc()); // これを追加
+	    return "index";
+	}
 
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
-			@Valid@RequestParam("id") String id,
-			@Valid @RequestParam("password") String password) {
-		this.session.setAttribute("id", id);
-		this.session.setAttribute("password", password);
+	        @RequestParam("id") String id,
+	        @RequestParam("password") String password) {
+	    
+	    // IDをモデルにセット（フォームに残すため）
+	    m.addAttribute("id", id);
+	    m.addAttribute("password", password);
 
-		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-		if (usercs.isEmpty()) {
-			m.addAttribute("msg", "入力に誤りがあります");
-			return "loginform";
-		}
-		m.addAttribute("usercs", usercs);
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "入力に誤りがあります");
+	        return "loginform"; // ログイン画面へ戻る
+	    }
 
-		return "mainmenu";
+	    // ログイン成功
+	    this.session.setAttribute("id", id);
+	    this.session.setAttribute("password", password);
+	    m.addAttribute("usercs", usercs);
+
+	    return "mainmenu"; // メインメニューへ
 	}
+
 
 	/** 🔥 削除の確認画面を表示 */
 	@PostMapping("/deleteconfirm")
