@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ユーザー一覧</title>
+</head>
+<body>
+
+
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>ユーザー一覧</title>
+	</head>
+	<body>
+	<h1>ユーザー一覧</h1>
+
+	<form th:action="@{/usercs/delete}" method="post">
+	    <table border="1">
+	        <tr>
+	            <th>選択</th>
+	            <th>ID</th>
+	            <th>ユーザー名</th>
+	            <th>メールアドレス</th>
+	        </tr>
+	        <tr th:each="user : ${users}">
+	            <td>
+	                <input type="checkbox" name="userIds"
+	                       th:value="${userc.id}"
+	                       th:disabled="${userc.id == loginUsercId}" />
+	            </td>
+	            <td th:text="${userc.id}"></td>
+	            <td th:text="${userc.name}"></td>
+	          
+	        </tr>
+	    </table>
+
+	    <button type="submit">選択したユーザーを削除</button>
+	</form>
+
+	<p th:if="${message}" th:text="${message}" style="color:red;"></p>
+
+	</body>
+	</html>
+
+	</form>
+</body>
+</html>

@@ -52,7 +52,14 @@ public class UsercController {
 	public String fifth() {
 		return "deleteconfirm";
 	}
-
+	@RequestMapping("/sixth")
+	public String sixh() {
+		return "Allform";
+	}
+	@RequestMapping("/seventh")
+	public String seventh() {
+		return "insertform";
+	}
 	@RequestMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam("id") int id) {
 		List<Userc> usercs = service.searchUsercById(id);
@@ -175,4 +182,16 @@ public class UsercController {
 
 		return "deleteresult"; // 削除結果画面へ
 	}
+@RequestMapping("/Allform")
+public String getAllUsercs(Model m) {
+	List<Userc> usercs = service.selectAll();
+	
+	m.addAttribute("usercs", usercs);
+	
+	return "All";
 }
+}
+
+
+
+
