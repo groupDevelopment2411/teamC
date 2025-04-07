@@ -5,10 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/All" method="get">  
-	    ID：<input type="text" name="id"><br>
-	    名前：<input type="text" name="name"><br>
-	    パスワード：<input type="password" name="password"><br>
+	<form action="/All" method="post">  
+	    ID：<input type="text" name="userc"><br>
 	    <input type="submit" value="検索する">
 	    <p th:if="${msg}" th:text="${msg}" style="color:red;"></p>
 	</form>

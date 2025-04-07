@@ -66,15 +66,16 @@ public class UsercController {
 		m.addAttribute("usercs", usercs);
 		return "result";
 	}
+
 	
 	@GetMapping("/login")
-	public String showLoginForm(Model model) {
-	    model.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
+	public String showLoginForm(Model m) {
+	    m.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
 	    return "loginform"; // 👈 `loginform.html` に遷移
 	}
 	@RequestMapping("/loginform")
-	public String loginform(Model model) {
-	    model.addAttribute("userc", new Userc()); // これを追加
+	public String loginform(Model m) {
+	    m.addAttribute("userc", new Userc()); // これを追加
 	    return "index";
 	}
 
@@ -182,13 +183,13 @@ public class UsercController {
 
 		return "deleteresult"; // 削除結果画面へ
 	}
-@RequestMapping("/Allform")
+@RequestMapping("/All")
 public String getAllUsercs(Model m) {
 	List<Userc> usercs = service.selectAll();
 	
 	m.addAttribute("usercs", usercs);
 	
-	return "All";
+	return "result";
 }
 }
 
