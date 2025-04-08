@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>ユーザー一覧</title>
-</head>
-<body>
-
-
-	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head>
 	    <title>ユーザー一覧</title>
 	</head>
 	<body>
 	<h1>ユーザー一覧</h1>
-	<form th:action="/insertresult" method="post">
+	<form th:action="@{/usercs/delete}" method="post">
 
 	    <table border="1">
 	        <tr>

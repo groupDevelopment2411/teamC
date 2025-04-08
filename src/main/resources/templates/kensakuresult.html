@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/deleteconfirm" method="post">
+	    <table>
+	        <tr th:each="userc : ${usercs}">
+	            <td>
+	                社員ID<input type="text" name="selectedIds" th:value="${userc.id}">
+	                
+	            </td>
+	        </tr>
+	    </table>
+	    <input type="submit" value="削除確認">
+	</form>
+
+</body>
+</html>

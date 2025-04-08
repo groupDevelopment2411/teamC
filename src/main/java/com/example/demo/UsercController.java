@@ -52,57 +52,59 @@ public class UsercController {
 	public String fifth() {
 		return "deleteconfirm";
 	}
+
 	@RequestMapping("/sixth")
 	public String sixh() {
 		return "Allform";
 	}
+
 	@RequestMapping("/seventh")
 	public String seventh() {
 		return "insertform";
 	}
+
 	@RequestMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam("id") int id) {
 		List<Userc> usercs = service.searchUsercById(id);
 		m.addAttribute("usercs", usercs);
-		return "result";
+		return "kensakuresult";
 	}
 
-	
 	@GetMapping("/login")
 	public String showLoginForm(Model m) {
-	    m.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
-	    return "loginform"; // 👈 `loginform.html` に遷移
+		m.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
+		return "loginform"; // 👈 `loginform.html` に遷移
 	}
+
 	@RequestMapping("/loginform")
 	public String loginform(Model m) {
-	    m.addAttribute("userc", new Userc()); // これを追加
-	    return "index";
+		m.addAttribute("userc", new Userc()); // これを追加
+		return "index";
 	}
 
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
-	        @RequestParam("id") String id,
-	        @RequestParam("password") String password) {
-	    
-	    // IDをモデルにセット（フォームに残すため）
-	    m.addAttribute("id", id);
-	    m.addAttribute("password", password);
+			@RequestParam("id") String id,
+			@RequestParam("password") String password) {
 
-	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+		// IDをモデルにセット（フォームに残すため）
+		m.addAttribute("id", id);
+		m.addAttribute("password", password);
 
-	    if (usercs.isEmpty()) {
-	        m.addAttribute("msg", "入力に誤りがあります");
-	        return "loginform"; // ログイン画面へ戻る
-	    }
+		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-	    // ログイン成功
-	    this.session.setAttribute("id", id);
-	    this.session.setAttribute("password", password);
-	    m.addAttribute("usercs", usercs);
+		if (usercs.isEmpty()) {
+			m.addAttribute("msg", "入力に誤りがあります");
+			return "loginform"; // ログイン画面へ戻る
+		}
 
-	    return "mainmenu"; // メインメニューへ
+		// ログイン成功
+		this.session.setAttribute("id", id);
+		this.session.setAttribute("password", password);
+		m.addAttribute("usercs", usercs);
+
+		return "mainmenu"; // メインメニューへ
 	}
-
 
 	/** 🔥 削除の確認画面を表示 */
 	@PostMapping("/deleteconfirm")
@@ -183,16 +185,54 @@ public class UsercController {
 
 		return "deleteresult"; // 削除結果画面へ
 	}
-@RequestMapping("/All")
-public String getAllUsercs(Model m) {
-	List<Userc> usercs = service.selectAll();
-	
-	m.addAttribute("usercs", usercs);
-	
-	return "result";
+
+	@RequestMapping("/All")
+	public String getAllUsercs(Model m) {
+		List<Userc> usercs = service.selectAll();
+
+		m.addAttribute("usercs", usercs);
+
+		return "result";
+	}
+
+	@GetMapping("/insertform")
+	public String showinsertForm(Model m) {
+		m.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
+		return "insert"; // 👈 `loginform.html` に遷移
+
+	}
+
+
+	@PostMapping("/insert")
+	public String searchIdAndPassword(Model m,
+			@RequestParam("id") String id,
+			@RequestParam("password") String password,
+			@RequestParam("name") String name,
+			@RequestParam("age") String age,
+			@RequestParam("startDate") String startDate,
+			@RequestParam("endDate") String endDate) {
+
+		// IDをモデルにセット（フォームに残すため）
+		m.addAttribute("id", id);
+		m.addAttribute("password", password);
+		m.addAttribute("name", name);
+		m.addAttribute("age", age);
+		m.addAttribute("startDate",startDate);
+		m.addAttribute("endDate", endDate);
+
+		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+
+		if (usercs.isEmpty()) {
+			m.addAttribute("msg", "入力に誤りがあります");
+			return "insertform"; // ログイン画面へ戻る
+		}
+
+		// ログイン成功
+		this.session.setAttribute("id", id);
+		this.session.setAttribute("password", password);
+		m.addAttribute("usercs", usercs);
+
+		return "insurtresult"; // メインメニューへ
+	}
+
 }
-}
-
-
-
-
