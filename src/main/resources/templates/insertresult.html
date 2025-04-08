@@ -2,7 +2,7 @@
 	    <title>ユーザー一覧</title>
 	</head>
 	<body>
-	<h1>ユーザー一覧</h1>
+		<div th:insert="header :: headerFragment"></div>
 	<form th:action="@{/usercs/delete}" method="post">
 
 	    <table border="1">

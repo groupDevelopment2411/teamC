@@ -7,15 +7,13 @@
 <link th:href="@{/style/tymleaf.css}" rel="stylesheet">
 </head>
 <body>
-	<header>
-	<div tr th:each="userc: ${usercs}">
-				<td th:text="${userc.name}+さん"></td>
+	<div th:fragment="headerFragment">
+		  <header style="text-align: right; padding: -20px;">
+				<td th:text="${session.name}+さん"></td>
 				<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 	</tr></div>
 
-	<h1>トップメニュー</h1>
-	<div class=line></div>
-	</header>
+
 	
 </body>
 </html>

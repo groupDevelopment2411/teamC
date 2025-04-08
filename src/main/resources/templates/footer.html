@@ -7,7 +7,14 @@
 <link th:href="@{/style/tymleaf.css}" rel="stylesheet">
 </head>
 <body>
-	<footer> Copyright🄫teamc 2025</footer>
+	<!-- templates/footer.html -->
+	<div th:fragment="footerFragment">
+	  <footer style="text-align: right; padding: 10px;">
+	    <hr>
+		<p>Copyright🄫teamc 2025</p>
+	  </footer>
+	</div>
+
+
 
 </body>
-</html>

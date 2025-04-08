@@ -72,41 +72,42 @@ public class UsercController {
 
 	@GetMapping("/login")
 	public String showLoginForm(Model m) {
-		m.addAttribute("userc", new Userc()); // 👈 ここで `userc` をセット
-		return "loginform"; // 👈 `loginform.html` に遷移
+		m.addAttribute("userc", new Userc()); 
+		return "loginform"; 
 	}
 
 	@RequestMapping("/loginform")
 	public String loginform(Model m) {
-		m.addAttribute("userc", new Userc()); // これを追加
+		m.addAttribute("userc", new Userc()); 
 		return "index";
 	}
-
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
-			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+	        @RequestParam("id") String id,
+	        @RequestParam("password") String password) {
 
-		// IDをモデルにセット（フォームに残すため）
-		m.addAttribute("id", id);
-		m.addAttribute("password", password);
+	    m.addAttribute("id", id);
+	    m.addAttribute("password", password);
 
-		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-		if (usercs.isEmpty()) {
-			m.addAttribute("msg", "入力に誤りがあります");
-			return "loginform"; // ログイン画面へ戻る
-		}
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "入力に誤りがあります");
+	        return "loginform";
+	    }
 
-		// ログイン成功
-		this.session.setAttribute("id", id);
-		this.session.setAttribute("password", password);
-		m.addAttribute("usercs", usercs);
+	   
+	    Userc loginUser = usercs.get(0); 
+	    session.setAttribute("id", loginUser.getId());
+	    session.setAttribute("password", loginUser.getPassword());
+	    session.setAttribute("name", loginUser.getName());
 
-		return "mainmenu"; // メインメニューへ
+	    m.addAttribute("usercs", usercs);
+	    return "mainmenu";
 	}
 
-	/** 🔥 削除の確認画面を表示 */
+
+	//削除の確認画面を表示 //
 	@PostMapping("/deleteconfirm")
 	public String confirmDelete(
 			@RequestParam(value = "selectedIds", required = false) List<String> selectedIds,
@@ -207,6 +208,7 @@ public class UsercController {
 	public String searchIdAndPassword(Model m,
 			@RequestParam("id") String id,
 			@RequestParam("password") String password,
+			@RequestParam("confirmpassword") String ConfirmPassword,
 			@RequestParam("name") String name,
 			@RequestParam("age") String age,
 			@RequestParam("startDate") String startDate,

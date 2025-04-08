@@ -7,15 +7,8 @@
 <link th:href="@{/style/tymleaf.css}" rel="stylesheet">
 
 </head>
-
-<html>
 	<body>
-		<header>
-			<div tr th:each="userc: ${usercs}">
-						<td th:text="${userc.name}+さん"></td>
-						<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
-			</tr></div>
-
+		<div th:insert="header :: headerFragment"></div>
 			<h1>トップメニュー</h1>
 			<div class=line></div>
 			</header>
@@ -32,7 +25,9 @@
 	
 	
 	
-	<footer> Copyright🄫teamc 2025</footer>
+	<div th:insert="footer :: footerFragment"></div>
+
+
 
 </body>
 </html>

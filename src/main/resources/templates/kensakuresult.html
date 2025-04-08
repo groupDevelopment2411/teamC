@@ -6,11 +6,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:insert="header :: headerFragment"></div>
 	<form action="/deleteconfirm" method="post">
 	    <table>
 	        <tr th:each="userc : ${usercs}">
 	            <td>
-	                社員ID<input type="text" name="selectedIds" th:value="${userc.id}">
+	                社員ID<input type="text" name="selectedIds" th:value="${userc.id}" readonly>
 	                
 	            </td>
 	        </tr>
