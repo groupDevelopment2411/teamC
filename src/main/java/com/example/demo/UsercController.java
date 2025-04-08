@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -101,6 +103,10 @@ public class UsercController {
 	    session.setAttribute("id", loginUser.getId());
 	    session.setAttribute("password", loginUser.getPassword());
 	    session.setAttribute("name", loginUser.getName());
+	    
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    String loginTime = LocalDateTime.now().format(formatter);
+	    session.setAttribute("loginTime", loginTime);
 
 	    m.addAttribute("usercs", usercs);
 	    return "mainmenu";

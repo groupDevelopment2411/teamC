@@ -9,8 +9,9 @@
 <body>
 	<div th:fragment="headerFragment">
 		  <header style="text-align: right; padding: -20px;">
-				<td th:text="${session.name}+さん"></td>
-				<br><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+			<p th:text="${session.name + ' さん'}"></p>
+				<p th:text=" ${session.loginTime}"></p>
+				
 	</tr></div>
 
 
