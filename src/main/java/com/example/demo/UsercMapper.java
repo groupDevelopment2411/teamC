@@ -24,7 +24,7 @@ public interface UsercMapper {
 
 		
 	@Select
-	("SELECT * FROM userc WHERE id LIKE CONCAT('%', #{id}, '%')")
+	("SELECT * FROM userc WHERE id  = #{id}")
 
 	List<Userc> searchUsercById(@Param("id") int id) ;
 	

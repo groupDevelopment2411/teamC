@@ -64,11 +64,21 @@ public class UsercController {
 	public String seventh() {
 		return "insertform";
 	}
+	@RequestMapping("/eighth")
+	public String eighth() {
+		return "update";
+	}
 
 	@RequestMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam("id") int id) {
 		List<Userc> usercs = service.searchUsercById(id);
 		m.addAttribute("usercs", usercs);
+		
+
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "入力に誤りがあります");
+	        return "kensaku";
+	    }
 		return "kensakuresult";
 	}
 
