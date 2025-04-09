@@ -5,9 +5,14 @@
 </head>
 <body>
 	<div th:insert="header :: headerFragment"></div>
-	<form action="/kensakuform" method="post">
-			ID：<input type="text" name="id">
-			<input type="submit" value="検索">
-				</form>
+	<form action="/kensakuform" method="get">
+	    <input type="text" name="id"  />
+	    <button type="submit">検索</button>
+
+	    <div th:if="${msg}" style="color:red;">
+	        <p th:text="${msg}"></p>
+	    </div>
+	</form>
+
 </body>
 </html>

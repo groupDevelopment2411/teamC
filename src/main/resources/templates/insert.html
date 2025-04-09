@@ -30,7 +30,7 @@
 	        </tr>
 	        <tr th:each="userc : ${usercs}">
 	            <td>
-	                <input type="checkbox" name="userIds"
+	                <input type="text" name="userIds"
 	                       th:value="${userc.id}"
 	                       th:disabled="${userc.id == loginUsercId}" />
 	            </td>
@@ -45,7 +45,7 @@
 	        </tr>
 	    </table>
 
-	    <button type="submit">選択したユーザーを削除</button>
+	    <button type="submit">ユーザーを削除</button>
 	</form>
 
 	<p th:if="${message}" th:text="${message}" style="color:red;"></p>

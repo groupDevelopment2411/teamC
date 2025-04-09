@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.time.LocalDate;
-
 import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -17,13 +15,13 @@ public class Userc {
    
     private String name;
     private int age;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     
 
     public Userc() {}
 
-    public Userc(Integer id, String name, String password, int age, LocalDate startDate, LocalDate endDate, String confirmPassword) {
+    public Userc(Integer id, String name, String password, int age, String startDate, String endDate, String confirmPassword) {
         this.id = id;
         this.name = name;
         this.password = password;

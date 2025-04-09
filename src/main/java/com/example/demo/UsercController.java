@@ -70,17 +70,23 @@ public class UsercController {
 	}
 
 	@RequestMapping("/kensakuform")
-	public String searchUsercById(Model m, @RequestParam("id") int id) {
-		List<Userc> usercs = service.searchUsercById(id);
-		m.addAttribute("usercs", usercs);
-		
-
-	    if (usercs.isEmpty()) {
-	        m.addAttribute("msg", "入力に誤りがあります");
+	public String searchUsercById(Model m, @RequestParam(value = "id", required = false) Integer id) {
+	    if (id == null) {
+	        m.addAttribute("msg", "IDを入力してください");
 	        return "kensaku";
 	    }
-		return "kensakuresult";
+
+	    List<Userc> usercs = service.searchUsercById(id);
+	    m.addAttribute("usercs", usercs);
+
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "該当するユーザーが見つかりません");
+	        return "kensaku";
+	    }
+
+	    return "kensakuresult";
 	}
+
 
 	@GetMapping("/login")
 	public String showLoginForm(Model m) {
@@ -222,35 +228,41 @@ public class UsercController {
 
 	@PostMapping("/insert")
 	public String searchIdAndPassword(Model m,
-			@RequestParam("id") String id,
-			@RequestParam("password") String password,
-			@RequestParam("confirmpassword") String ConfirmPassword,
-			@RequestParam("name") String name,
-			@RequestParam("age") String age,
-			@RequestParam("startDate") String startDate,
-			@RequestParam("endDate") String endDate) {
+	        @RequestParam("id") String id,
+	        @RequestParam("password") String password,
+	        @RequestParam("confirmPassword") String confirmPassword,
+	        @RequestParam("name") String name,
+	        @RequestParam("age") String age,
+	        @RequestParam("startDate") String startDate,
+	        @RequestParam("endDate") String endDate) {
 
-		// IDをモデルにセット（フォームに残すため）
-		m.addAttribute("id", id);
-		m.addAttribute("password", password);
-		m.addAttribute("name", name);
-		m.addAttribute("age", age);
-		m.addAttribute("startDate",startDate);
-		m.addAttribute("endDate", endDate);
+	    // 入力を保持する
+	    m.addAttribute("id", id);
+	    m.addAttribute("password", password);
+	    m.addAttribute("confirmPassword", confirmPassword);
+	    m.addAttribute("name", name);
+	    m.addAttribute("age", age);
+	    m.addAttribute("startDate", startDate);
+	    m.addAttribute("endDate", endDate);
 
-		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+	    // パスワード確認チェック
+	    if (!password.equals(confirmPassword)) {
+	        m.addAttribute("msg", "パスワードが一致しません");
+	        return "insertform";
+	    }
 
-		if (usercs.isEmpty()) {
-			m.addAttribute("msg", "入力に誤りがあります");
-			return "insertform"; // ログイン画面へ戻る
-		}
+	    // IDとパスワードの存在チェック
+	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "入力に誤りがあります");
+	        return "insertform";
+	    }
 
-		// ログイン成功
-		this.session.setAttribute("id", id);
-		this.session.setAttribute("password", password);
-		m.addAttribute("usercs", usercs);
+	    // 成功
+	    this.session.setAttribute("id", id);
+	    this.session.setAttribute("password", password);
+	    m.addAttribute("usercs", usercs);
 
-		return "insurtresult"; // メインメニューへ
+	    return "insertresult";
 	}
-
 }

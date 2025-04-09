@@ -3,7 +3,7 @@
 	</head>
 	<body>
 		<div th:insert="header :: headerFragment"></div>
-	<form th:action="@{/usercs/delete}" method="post">
+	<form th:action="/delete" method="post">
 
 	    <table border="1">
 	        <tr>
@@ -18,11 +18,7 @@
 				
 	        </tr>
 	        <tr th:each="userc : ${usercs}">
-	            <td>
-	                <input type="checkbox" name="userIds"
-	                       th:value="${userc.id}"
-	                       th:disabled="${userc.id == loginUsercId}" />
-	            </td>
+	            
 	            <td th:text="${userc.id}"></td>
 	            <td th:text="${userc.name}"></td>
 				<td th:text="${userc.age}"></td>
@@ -34,7 +30,7 @@
 	        </tr>
 	    </table>
 
-	    <button type="submit">選択したユーザーを削除</button>
+	    <button type="submit">ユーザーを削除</button>
 	</form>
 
 	<p th:if="${message}" th:text="${message}" style="color:red;"></p>
