@@ -13,8 +13,7 @@
 		<input type="submit" value="ログイン">
 		<a href="third">戻る</a>
 	</form>
-
-	<script>
+<script>
 		function validateForm() {
 		    const id = document.getElementById("id").value.trim();
 		    const password = document.getElementById("password").value.trim();
@@ -44,9 +43,22 @@
 		        alert("パスワードは6文字以上で入力してください。");
 		        return false;
 		    }
+			function validateLoginForm() {
+			           var id = document.getElementById('id').value;
+			           var password = document.getElementById('password').value;
 
-		    return true;
-		}
+			           // IDとパスワードが未入力の場合
+			           if (!id || !password) {
+			               alert('IDまたはパスワードが入力されていません');
+			               return false;  // 送信をキャンセル
+			           }
+
+			           // サーバーへ送信してIDとパスワードが一致するか確認（仮にIDとパスワードが「test」の場合）
+			           if (id !== "test" || password !== "test") {
+			               alert('IDまたはパスワードが間違っています');
+			               return false;  // 送信をキャンセル
+			           }
+                     return true;}}
 	</script>
 </body>
 </html>
