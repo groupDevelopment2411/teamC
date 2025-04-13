@@ -21,6 +21,20 @@ public interface UsercMapper {
 
 	@Delete("DELETE FROM userc WHERE id = #{id}")
 	void delete(int id);
+	
+	    @Select("""
+	        SELECT * FROM userc
+	        WHERE (#{id} IS NULL OR id = #{id})
+	          AND (#{name} IS NULL OR name = #{name})
+	          AND (#{password} IS NULL OR password = #{password})
+	    """)
+	    List<Userc> search(@Param("id") Integer id,
+	                       @Param("name") String name,
+	                       @Param("password") String password);
+
+	    @Delete("DELETE FROM userc WHERE id = #{id}")
+	    int deleteById(@Param("id") int id);
+	
 
 		
 	@Select

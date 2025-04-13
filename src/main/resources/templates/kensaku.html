@@ -6,7 +6,7 @@
 <body>
 	<div th:insert="header :: headerFragment"></div>
 	<form action="/kensakuform" method="get">
-	    <input type="text" name="id"  />
+	    ID<input type="text" name="id"  />
 	    <button type="submit">検索</button>
 
 	    <div th:if="${msg}" style="color:red;">

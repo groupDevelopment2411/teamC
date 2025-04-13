@@ -2,57 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ユーザー一覧</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-
-	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>ユーザー一覧</title>
-	</head>
-	<body>
-		<div th:insert="header :: headerFragment"></div>
-	<form th:action="/insertresult" method="post">
-
-	    <table border="1">
-	        <tr>
-	            
-	            <th>社員ID</th>
-	            <th>社員名</th>
-	            <th>年齢</th>
-				<th>パスワード</th>
-				<th>パスワード確</th>
-				<th>開始日</th>
-				<th>終了日</th>
-				
-	        </tr>
-	        <tr th:each="userc : ${usercs}">
-	            <td>
-	                <input type="text" name="userIds"
-	                       th:value="${userc.id}"
-	                       th:disabled="${userc.id == loginUsercId}" />
-	            </td>
-	            <td th:text="${userc.id}"></td>
-	            <td th:text="${userc.name}"></td>
-				<td th:text="${userc.age}"></td>
-				<td th:text="${userc.password}"></td>
-				<td th:text="${userc.confirmPassword}"></td>
-				<td th:text="${userc.startDate}"></td>
-				<td th:text="${userc.endDate}"></td>
-				
-	        </tr>
-	    </table>
-
-	    <button type="submit">ユーザーを削除</button>
-	</form>
-
-	<p th:if="${message}" th:text="${message}" style="color:red;"></p>
-
-	</body>
-	</html>
-
-	</form>
+登録画面
 </body>
 </html>

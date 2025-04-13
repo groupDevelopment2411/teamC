@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
@@ -7,22 +7,27 @@
 </head>
 <body>
 	
-	<div th:insert="header :: headerFragment"></div>
+    <!-- ヘッダーフラグメントの挿入 -->
+    <div th:insert="header :: headerFragment"></div>
+
     <h1>社員情報削除(確認)</h1>
     
     <p>本当に削除しますか？</p>
 
+    <!-- 削除確認フォーム -->
     <form action="/delete" method="post">
-		>社員ID: 			
-        <input type="text" name="selectedIds" th:each="id : ${selectedIds}" th:value="${id}" readonly>
+        <div th:each="id : ${selectedIds}">
+            社員ID:
+            <input type="text" name="selectedIds" th:value="${id}" readonly><br>
+        </div>
         <input type="submit" value="削除">
     </form>
 
-    <form action="/second" method="get">
-		
-		<a href="/second"><button>キャンセル</button></a>
-		<p th:text="${msg}"></p>
-    </form>
+    <!-- キャンセルボタン（mainmenuなどに戻す） -->
+	<form action="/second" method="get">
+	    <button type="submit">キャンセル</button>
+	</form>
+
 
 </body>
 </html>

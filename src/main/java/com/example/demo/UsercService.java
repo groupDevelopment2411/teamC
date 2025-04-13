@@ -32,8 +32,8 @@ public class UsercService {
 		 return mapper.searchUsercById(id);}
 	
 
-public void deleteUsercsByIds(List<Integer> ids) {
-    mapper.deleteUsercsByIds(ids);
+public void deleteUsercsByIds(List<Integer> id) {
+    mapper.deleteUsercsByIds(id);
 }
 
 public List<Userc> getAllUsercs() {
@@ -42,6 +42,11 @@ public List<Userc> getAllUsercs() {
 }
 
 public List<Userc> findUsersByIds(List<Integer> selectedIds) {
+	// TODO 自動生成されたメソッド・スタブ
+	return null;
+}
+
+public static Userc findById(int id) {
 	// TODO 自動生成されたメソッド・スタブ
 	return null;
 }

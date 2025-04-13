@@ -7,11 +7,11 @@
 <body>
 	<div th:insert="header :: headerFragment"></div>
 	<form action="/All" method="post">  
-	    ID：<input type="text" name="userc"><br>
+	    <input type="text" name="userc"><br>
 	    <input type="submit" value="検索する">
 	    <p th:if="${msg}" th:text="${msg}" style="color:red;"></p>
 	</form>
 
-	</form>
+
 </body>
 </html>
