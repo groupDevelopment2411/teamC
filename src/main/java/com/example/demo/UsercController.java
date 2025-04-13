@@ -154,6 +154,7 @@ public class UsercController {
 	    List<Userc> selectedUsercs = service.findUsersByIds(filteredIds);
 	    m.addAttribute("selectedUsercs", selectedUsercs);
 	    m.addAttribute("selectedIds", filteredIds); // 🔥 削除処理で使う
+	    
 
 	    return "deleteconfirm"; // 確認画面へ
 	}
@@ -193,6 +194,8 @@ public class UsercController {
 	        List<Userc> selectedUsercs = service.findUsersByIds(selectedIds);
 	        m.addAttribute("selectedUsercs", selectedUsercs);
 	        m.addAttribute("selectedIds", selectedIds);
+	        
+	        
 
 	        return "deleteconfirm"; // 確認画面に戻る
 	    }
@@ -224,11 +227,12 @@ public class UsercController {
 	    return "deleteconfirm";
 	}
 	@PostMapping("/deleteconfirm")
-	public String showDeleteConfirm(@RequestParam("selectedIds") List<Integer> ids, Model m) {
-	    List<Userc> usercs = service.findUsersByIds(ids);
-	    m.addAttribute("selectedUsercs", usercs);
-	    m.addAttribute("selectedIds", ids);
-	    return "deleteconfirm";
+	public String showDeleteConfirm(@RequestParam("selectedIds") List<Integer> selectedIds, Model m) {
+	    List<Userc> selectedUsercs = service.findUsersByIds(selectedIds);
+	    m.addAttribute("selectedUsercs", selectedUsercs);
+	    m.addAttribute("selectedIds", selectedIds);
+	    return "deleteconfirm";  // 削除確認画面にデータを渡す
 	}
+
 
 }

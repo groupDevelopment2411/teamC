@@ -15,11 +15,12 @@
     <p>本当に削除しますか？</p>
 
     <!-- 削除確認フォーム -->
-    <form action="/delete" method="post">
-        <div th:each="id : ${selectedIds}">
-            社員ID:
-            <input type="text" name="selectedIds" th:value="${id}" readonly><br>
-        </div>
+		<form action="/delete" method="post" onsubmit="return checkBeforeSubmit()">
+			<div th:each="id : ${selectedIds}">
+			    <input type="text" name="selectedIds" th:value="${id}" readonly>
+			</div>
+
+        
         <input type="submit" value="削除">
     </form>
 
@@ -27,6 +28,31 @@
 	<form action="/second" method="get">
 	    <button type="submit">キャンセル</button>
 	</form>
+	    <!-- JavaScript内にThymeleafの変数を使うために th:inline="javascript" が必要 -->
+		<script th:inline="javascript">
+			function checkBeforeSubmit() {
+			    const selectedIds = document.getElementsByName("selectedIds");
+			    if (selectedIds.length === 0) {
+			        alert("削除する項目を選択してください");
+			        return false;  // 送信を中止
+			    }
+
+			    const loginUserId = /*[[${session.id}]]*/ 0;  // セッションから取得したユーザーID
+
+			    for (let i = 0; i < selectedIds.length; i++) {
+			        const id = parseInt(selectedIds[i].value, 10);
+			        if (id === loginUserId) {
+			            alert("ログイン中のユーザーは削除できません。");
+			            return false;  // 送信を中止
+			        }
+			    }
+			    return true;  // 条件を満たす場合は送信を許可
+			}
+
+			console.log("ログイン中のユーザーID:", loginUserId);
+			console.log("選択されたID:", selectedIds);
+
+		</script>
 
 
 </body>
