@@ -6,13 +6,19 @@
 </head>
 <body>
 	<div th:insert="header :: headerFragment"></div>
-	<form action="/deleteconfirm" method="post">
-				名前：<input type="text" name="userc">
-				<input type="submit" value="検索">
-					</form>
-					<script th:inline="javascript">
-					    var loginUserId = /*[[${session.id}]]*/ 0;  // セッションからログイン中のIDを取得
-					</script>
 
+	<form action="/deleteconfirm" method="post">
+		<input type="hidden" name="returnTo" th:value="${returnTo != null ? returnTo : 'kensaku'}" />
+		名前：<input type="text" name="userc">
+		<input type="submit" value="検索">
+	</form>
+
+	<script th:inline="javascript">
+	    var loginUserId = /*[[${session.id}]]*/ 0;  // セッションからログイン中のIDを取得
+	</script>
+	
+	
+	
+	
 </body>
 </html>

@@ -69,23 +69,31 @@ public class UsercController {
 		return "update";
 	}
 
+	
 	@RequestMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam(value = "id", required = false) Integer id) {
+	    // IDが入力されていない場合のチェック
 	    if (id == null) {
 	        m.addAttribute("msg", "IDを入力してください");
 	        return "kensaku";
 	    }
 
+	    // サービスからIDに該当するユーザーを検索
 	    List<Userc> usercs = service.searchUsercById(id);
-	    m.addAttribute("selectedIds", usercs.get(0).getId());
 
+	    // 該当するユーザーがいない場合のチェック
 	    if (usercs.isEmpty()) {
 	        m.addAttribute("msg", "該当するユーザーが見つかりません");
 	        return "kensaku";
 	    }
 
+	    // ユーザーが見つかった場合は最初のIDをselectedIdsとして設定
+	    m.addAttribute("selectedIds", usercs.get(0).getId());
+
+	    // 削除確認画面に遷移
 	    return "deleteconfirm";
 	}
+
 
 
 
@@ -240,11 +248,27 @@ public class UsercController {
 
 
 	@GetMapping("/deleteconfirm")
-	public String showDeleteConfirm(@RequestParam("id") int id, Model model) {
-	    Userc userc = service.findById(id); // ← serviceを使う！
-	    model.addAttribute("userc", userc);
+	public String showDeleteConfirm(
+	        @RequestParam(required = false) Integer id,
+	        @RequestParam List<Integer> selectedIds,
+	        @RequestParam String returnTo, // 必須パラメータ
+	        Model m, HttpSession session) {
+
+	    if (id != null) {
+	        Userc userc = service.findById(id);
+	        m.addAttribute("userc", userc);
+	    }
+
+	    m.addAttribute("selectedIds", selectedIds);
+	    m.addAttribute("returnTo", returnTo);  // Modelに追加
+	    m.addAttribute("session", session);
+	    
+	    
+
 	    return "deleteconfirm";
 	}
+
+
 	@PostMapping("/deleteconfirm")
 	public String showDeleteConfirm(@RequestParam("selectedIds") List<Integer> selectedIds, Model m) {
 	    List<Userc> selectedUsercs = service.findUsersByIds(selectedIds);

@@ -6,7 +6,7 @@
     <title>削除確認</title>
 </head>
 <body>
-	
+
     <!-- ヘッダーフラグメントの挿入 -->
     <div th:insert="header :: headerFragment"></div>
 
@@ -15,46 +15,43 @@
     <p>本当に削除しますか？</p>
 
     <!-- 削除確認フォーム -->
-		<form action="/delete" method="post" onsubmit="return checkBeforeSubmit()">
-			<div th:each="id : ${selectedIds}">
-			    <input type="text" name="selectedIds" th:value="${id}" readonly>
-			</div>
-
-        
+    <form action="/delete" method="post" onsubmit="return checkBeforeSubmit()">
+        <div th:each="id : ${selectedIds}">
+            <input type="text" name="selectedIds" th:value="${id}" readonly>
+        </div>
         <input type="submit" value="削除">
     </form>
 
-    <!-- キャンセルボタン（mainmenuなどに戻す） -->
-	<form action="/second" method="get">
-	    <button type="submit">キャンセル</button>
-	</form>
-	    <!-- JavaScript内にThymeleafの変数を使うために th:inline="javascript" が必要 -->
-		<script th:inline="javascript">
-			var loginUserId = /*[[${session.id}]]*/ 0;  // セッションからログイン中のIDを取得
-			function checkBeforeSubmit() {
-			    const selectedIds = document.getElementsByName("selectedIds");
-			    if (selectedIds.length === 0) {
-			        alert("削除する項目を選択してください");
-			        return false;  // 送信を中止
-			    }
+    <!-- 戻るボタン（th:if で切り替え） -->
+	<a th:if="${returnTo == 'kensaku'}" th:href="@{/kensaku}" class="btn btn-secondary">戻る</a>
+	<a th:if="${returnTo == 'Allform'}" th:href="@{/Allform}" class="btn btn-secondary">戻る</a>
+	<a th:if="${returnTo != 'kensaku' and returnTo != 'Allform'}" href="javascript:history.back()" class="btn btn-secondary">戻る</a>
 
-			    for (let i = 0; i < selectedIds.length; i++) {
-			        const id = parseInt(selectedIds[i].value, 10);
-			        if (id === loginUserId) {
-			            alert("ログイン中のユーザーは削除できません。");
-			            return false;  // 送信を中止
-			        }
-			    }
-			    return true;  // 条件を満たす場合は送信を許可
-			}
 
-			
-			
-			
-			
+    <!-- セッションIDをJavaScriptに渡す（formを閉じ忘れない） -->
+    <form action="/deleteconfirm" method="post">
+        <input type="hidden" name="returnTo" th:value="${returnTo}" />
+    </form>
 
-		</script>
-
+    <!-- JavaScript -->
+    <script th:inline="javascript">
+        var loginUserId = /*[[${session.id}]]*/ 0;
+        function checkBeforeSubmit() {
+            const selectedIds = document.getElementsByName("selectedIds");
+            if (selectedIds.length === 0) {
+                alert("削除する項目を選択してください");
+                return false;
+            }
+            for (let i = 0; i < selectedIds.length; i++) {
+                const id = parseInt(selectedIds[i].value, 10);
+                if (id === loginUserId) {
+                    alert("ログイン中のユーザーは削除できません。");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
 
 </body>
 </html>
