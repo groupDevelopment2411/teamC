@@ -30,14 +30,13 @@
 	</form>
 	    <!-- JavaScript内にThymeleafの変数を使うために th:inline="javascript" が必要 -->
 		<script th:inline="javascript">
+			var loginUserId = /*[[${session.id}]]*/ 0;  // セッションからログイン中のIDを取得
 			function checkBeforeSubmit() {
 			    const selectedIds = document.getElementsByName("selectedIds");
 			    if (selectedIds.length === 0) {
 			        alert("削除する項目を選択してください");
 			        return false;  // 送信を中止
 			    }
-
-			    const loginUserId = /*[[${session.id}]]*/ 0;  // セッションから取得したユーザーID
 
 			    for (let i = 0; i < selectedIds.length; i++) {
 			        const id = parseInt(selectedIds[i].value, 10);
@@ -49,8 +48,6 @@
 			    return true;  // 条件を満たす場合は送信を許可
 			}
 
-			console.log("ログイン中のユーザーID:", loginUserId);
-			console.log("選択されたID:", selectedIds);
 
 		</script>
 

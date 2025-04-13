@@ -114,7 +114,6 @@ public class UsercController {
 	        return "loginform";
 	    }
 
-	   
 	    Userc loginUser = usercs.get(0); 
 	    session.setAttribute("id", loginUser.getId());
 	    session.setAttribute("password", loginUser.getPassword());
@@ -127,6 +126,7 @@ public class UsercController {
 	    m.addAttribute("usercs", usercs);
 	    return "mainmenu";
 	}
+
 
 
 	//削除の確認画面を表示 //
