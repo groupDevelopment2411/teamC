@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
@@ -10,66 +9,51 @@
 
 	<form action="/sendlogin" method="post" onsubmit="return validateForm()">
 		ID: <input type="text" name="id" id="id" th:value="${id}"/><br>
-		パスワード: <input type="password" name="password" id="password" th:value="${password}" ><br>
+		パスワード: <input type="password" name="password" id="password" th:value="${password}"><br>
 		<input type="submit" value="ログイン">
 		<a href="third">戻る</a>
 	</form>
 
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    let msg = /*[[${msg}]]*/ "";
-	    if (msg !== "") {
-	        alert(msg);
+	function validateForm() {
+	    const id = document.getElementById("id").value.trim();
+	    const password = document.getElementById("password").value.trim();
+
+	    if (id === "" && password === "") {
+	        alert("IDとパスワードを入力してください。");
+	        return false;
 	    }
+
+	    if (id === "" && password !== "") {
+	        alert("IDを入力してください。");
+	        return false;
+	    }
+
+	    if (id !== "" && password === "") {
+	        alert("パスワードを入力してください。");
+	        return false;
+	    }
+
+	    if (!/^\d+$/.test(id)) {
+	        alert("IDは数字で入力してください。");
+	        return false;
+	    }
+
+	    if (password.length < 6) {
+	        alert("パスワードは6文字以上で入力してください。");
+	        return false;
+	    }
+
+	    return true;
+	}
+
+	// サーバーから渡されたエラーメッセージがあれば表示
+	let msg = /*[[${msg}]]*/ "";
+	if (msg !== "") {
+	    alert(msg);
+	}
 	/*]]>*/
-
-	
-		function validateForm() {
-		    const id = document.getElementById("id").value.trim();
-		    const password = document.getElementById("password").value.trim();
-
-			
-			if (id === "" || password === "") {
-							        alert("IDとパスワードを入力してください。");
-							        return false;
-			
-		    if (id === "") {
-		        alert("IDを入力してください。");
-		        return false;
-		    }
-
-		    if (password === "") {
-		        alert("パスワードを入力してください。");
-		        return false;
-		    }
-			
-				    }
-		    if (!/^\d+$/.test(id)) {
-		        alert("IDは数字で入力してください。");
-		        return false;
-		    }
-
-		    if (password.length < 6) {
-		        alert("パスワードは6文字以上で入力してください。");
-		        return false;
-		    }
-			function validateLoginForm() {
-			           var id = document.getElementById('id').value;
-			           var password = document.getElementById('password').value;
-
-			           // IDとパスワードが未入力の場合
-			           if (!id || !password) {
-			               alert('IDまたはパスワードが入力されていません');
-			               return false;  // 送信をキャンセル
-			           }
-
-			           // サーバーへ送信してIDとパスワードが一致するか確認（仮にIDとパスワードが「test」の場合）
-			           if (id !== "test" || password !== "test") {
-			               alert('IDまたはパスワードが間違っています');
-			               return false;  // 送信をキャンセル
-			           }
-                     return true;}}
 	</script>
 </body>
 </html>
-

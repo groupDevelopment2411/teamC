@@ -99,6 +99,22 @@ public class UsercController {
 	        @RequestParam("id") String id,
 	        @RequestParam("password") String password) {
 
+
+	    if (id == null || password == null) {
+	        m.addAttribute("msg", "IDとパスワードを入力してください");
+	        return "loginform";
+	    }
+		
+	    if (id == null || id.isEmpty()) {
+	        m.addAttribute("msg", "IDを入力してください");
+	        return "loginform";
+	    }
+
+	    if (password == null || password.isEmpty()) {
+	        m.addAttribute("msg", "パスワードを入力してください");
+	        return "loginform";
+	    }
+
 	    m.addAttribute("id", id);
 	    m.addAttribute("password", password);
 
@@ -109,11 +125,11 @@ public class UsercController {
 	        return "loginform";
 	    }
 
-	    Userc loginUser = usercs.get(0); 
+	    Userc loginUser = usercs.get(0);
 	    session.setAttribute("id", loginUser.getId());
 	    session.setAttribute("password", loginUser.getPassword());
 	    session.setAttribute("name", loginUser.getName());
-	    
+
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	    String loginTime = LocalDateTime.now().format(formatter);
 	    session.setAttribute("loginTime", loginTime);
@@ -121,6 +137,7 @@ public class UsercController {
 	    m.addAttribute("usercs", usercs);
 	    return "mainmenu";
 	}
+
 
 
 
@@ -149,7 +166,6 @@ public class UsercController {
 	    List<Userc> selectedUsercs = service.findUsersByIds(filteredIds);
 	    m.addAttribute("selectedUsercs", selectedUsercs);
 	    m.addAttribute("selectedIds", filteredIds); // 🔥 削除処理で使う
-	    
 
 	    return "deleteconfirm"; // 確認画面へ
 	}
@@ -205,15 +221,23 @@ public class UsercController {
 
 	    return "deleteresult"; // 削除結果画面へ
 	}
-
 	@RequestMapping("/All")
-	public String getAllUsercs(Model m) {
-		List<Userc> usercs = service.selectAll();
+	public String getAllUsercs(Model m, @RequestParam(name = "userc", required = false) String userc) {
+	    if (userc == null || userc.trim().isEmpty()) {
+	        m.addAttribute("msg", "検索する内容を入力してください");
+	        m.addAttribute("userc", userc); // 入力値を保持
+	        return "Allform";
+	    }
 
-		m.addAttribute("usercs", usercs);
+	    m.addAttribute("userc", userc); // 入力値を保持
 
-		return "result";
+	    List<Userc> usercs = service.selectAll(); // 検索ロジックにusercを反映してもOK
+	    m.addAttribute("usercs", usercs);
+
+	    return "result";
 	}
+
+
 
 	@GetMapping("/deleteconfirm")
 	public String showDeleteConfirm(@RequestParam("id") int id, Model model) {
@@ -229,5 +253,5 @@ public class UsercController {
 	    return "deleteconfirm";  // 削除確認画面にデータを渡す
 	}
 
-
+	
 }

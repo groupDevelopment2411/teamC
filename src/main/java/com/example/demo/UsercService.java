@@ -46,7 +46,12 @@ public List<Userc> findUsersByIds(List<Integer> selectedIds) {
 	return null;
 }
 
-public static Userc findById(int id) {
+public Userc findById(int id) {
+	// TODO 自動生成されたメソッド・スタブ
+	return null;
+}
+
+public List<Userc> selectByKeyword(String userc) {
 	// TODO 自動生成されたメソッド・スタブ
 	return null;
 }
