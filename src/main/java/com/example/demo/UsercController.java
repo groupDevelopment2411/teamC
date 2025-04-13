@@ -88,11 +88,6 @@ public class UsercController {
 	}
 
 
-	@GetMapping("/login")
-	public String showLoginForm(Model m) {
-		m.addAttribute("userc", new Userc()); 
-		return "loginform"; 
-	}
 
 	@RequestMapping("/loginform")
 	public String loginform(Model m) {
@@ -110,7 +105,7 @@ public class UsercController {
 	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
 	    if (usercs.isEmpty()) {
-	        m.addAttribute("msg", "入力に誤りがあります");
+	        m.addAttribute("msg", "入力内容に誤りがあります");
 	        return "loginform";
 	    }
 

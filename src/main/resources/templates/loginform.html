@@ -7,13 +7,23 @@
 </head>
 <body>
 	<h1>ログイン</h1>
+
 	<form action="/sendlogin" method="post" onsubmit="return validateForm()">
-		ID: <input type="text" name="id" id="id"/><br>
-		パスワード: <input type="password" name="password" id="password"><br>
+		ID: <input type="text" name="id" id="id" th:value="${id}"/><br>
+		パスワード: <input type="password" name="password" id="password" th:value="${password}" ><br>
 		<input type="submit" value="ログイン">
 		<a href="third">戻る</a>
 	</form>
-<script>
+
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    let msg = /*[[${msg}]]*/ "";
+	    if (msg !== "") {
+	        alert(msg);
+	    }
+	/*]]>*/
+
+	
 		function validateForm() {
 		    const id = document.getElementById("id").value.trim();
 		    const password = document.getElementById("password").value.trim();
