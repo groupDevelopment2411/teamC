@@ -110,7 +110,7 @@ public class UsercController {
 
 	//削除検索入力チェック
 
-	@RequestMapping("/kensakuform")
+	@PostMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam(value = "id", required = false) Integer id) {
 
 		if (id == null) {

@@ -8,7 +8,7 @@
 <body>
 	<div th:insert="header :: headerFragment"></div>
 	<h1>社員情報削除</h1>
-	<form action="/kensakuform" method="get" onsubmit="return validateForm()">
+	<form action="/kensakuform" method="post" onsubmit="return validateForm()">
 		
 	    ID<input type="text" name="id" id="id" />
 	    <button type="submit">検索</button>
