@@ -9,43 +9,44 @@
 	<div th:insert="header :: headerFragment"></div>
 	<h1>社員情報削除</h1>
 	<form action="/kensakuform" method="post" onsubmit="return validateForm()">
-		
-	    ID<input type="text" name="id" id="id" />
+	    ID<input type="text" name="id" id="id" th:value="${inputId}" />
 	    <button type="submit">検索</button>
 
-	    <div th:if="${msg}" style="color:red;">
-	        <p th:text="${msg}"></p>
 	    </div>
 	</form>
+
+
 	<a href="/fourth"><button>戻る</button></a>
 	
 	<div th:insert="footer :: footerFragment"></div>
+	
+	
 		<script th:inline="javascript">
-	    // フォーム送信前のバリデーション
+	    
 		
 		
 	    function validateForm() {
-	      var id = document.getElementById("id").value; // IDの入力欄の値を取得
+	      var id = document.getElementById("id").value; 
 
 	      if (id === "") {
-	        alert("IDを入力してください"); // IDが空の場合、アラート
-	        return false; // フォーム送信を中止
+	        alert("IDを入力してください"); 
+	        return false; 
 	      }
 
-	      // 追加でIDが数値でない場合のチェック
+	      
 	      if (isNaN(id)) {
 	        alert("IDは数値で入力してください");
 	        return false;
 	      }
 
-	      // サーバーサイドでIDが存在しない場合、アラートを表示
-	      var msg = document.querySelector("[data-msg]").getAttribute("data-msg"); // data-msg属性を取得
+	      
+	      var msg = document.querySelector("[data-msg]").getAttribute("data-msg"); 
 	      if (msg !== "") {
-	        alert(msg); // メッセージがある場合に表示
+	        alert(msg); 
 	        return false;
 	      }
 
-	      return true; // バリデーションが通った場合、フォーム送信を許可
+	      return true; 
 	    }
 		
 		let msg = /*[[${msg}]]*/ "";

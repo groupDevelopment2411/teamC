@@ -113,21 +113,21 @@ public class UsercController {
 	@PostMapping("/kensakuform")
 	public String searchUsercById(Model m, @RequestParam(value = "id", required = false) Integer id) {
 
-		if (id == null) {
-			m.addAttribute("msg", "IDを入力してください");
-			return "kensaku";
-		}
+	    if (id == null) {
+	        m.addAttribute("msg", "IDを入力してください");
+	        return "kensaku";
+	    }
 
-		List<Userc> usercs = service.searchUsercById(id);
+	    List<Userc> usercs = service.searchUsercById(id);
 
-		if (usercs.isEmpty()) {
-			m.addAttribute("msg", "該当するユーザーが見つかりません");
-			return "kensaku";
-		}
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "該当するユーザーが見つかりません");
+	        m.addAttribute("inputId", id); // 入力値を渡す
+	        return "kensaku";
+	    }
 
-		m.addAttribute("selectedIds", usercs.get(0).getId());
-
-		return "deleteconfirm";
+	    m.addAttribute("selectedIds", usercs.get(0).getId());
+	    return "deleteconfirm";
 	}
 
 	//削除検索
@@ -159,6 +159,8 @@ public class UsercController {
 	}
 
 	//削除確認画面
+	
+	
 
 	@GetMapping("/deleteconfirm")
 	public String showDeleteConfirm(
@@ -180,13 +182,19 @@ public class UsercController {
 	}
 
 	@PostMapping("/deleteconfirm")
-	public String showDeleteConfirm(@RequestParam("selectedIds") List<Integer> selectedIds, Model m) {
+	public String showDeleteConfirm (
+		    @RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
+		    Model m) {
 		List<Userc> selectedUsercs = service.findUsersByIds(selectedIds);
 		m.addAttribute("selectedUsercs", selectedUsercs);
 		m.addAttribute("selectedIds", selectedIds);
 		return "deleteconfirm";
 	}
 
+	
+
+	
+	
 	//削除画面
 	@PostMapping("/delete")
 	public String deleteUsers(

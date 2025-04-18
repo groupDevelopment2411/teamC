@@ -9,7 +9,7 @@
 
     <h1>検索結果</h1>
 
-    <form th:action="@{/deleteconfirm}" method="post">
+    <form th:action="@{/deleteconfirm}" method="post" onsubmit="return validateForm();">
         <table border="1">
             <tr>
                 <th>選択</th>
@@ -33,5 +33,18 @@
     <p th:if="${msg}" th:text="${msg}" style="color:red;"></p>
 	
 	<div th:insert="footer :: footerFragment"></div>
+	
+	<script>
+	function validateForm() {
+	    const checkboxes = document.querySelectorAll('input[name="selectedIds"]:checked');
+	    if (checkboxes.length === 0) {
+	        alert("削除する項目を選択してください。");
+	        return false;
+	    }
+	    return true;
+	}
+	</script>
+
+	
 </body>
 </html>
