@@ -7,16 +7,47 @@
 <body>
 	<h1>ログイン</h1>
 
-	<form action="/loginfor" method="post">
-		ID: <input type="text" name="id" id="id" /><br>
-		パスワード: <input type="password" name="password" id="password"><br>
+	<form action="/sendlogin" method="post" onsubmit="return validateForm()">
+		ID: <input type="text" name="id" id="id" th:value="${id}"/><br>
+		パスワード: <input type="password" name="password" id="password" th:value="${password}"><br>
 		<input type="submit" value="ログイン">
 		<a href="third">戻る</a>
 	</form>
-	
-	
-	
 	<div th:insert="footer :: footerFragment"></div>
-	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	function validateForm() {
+	    const id = document.getElementById("id").value.trim();
+	    const password = document.getElementById("password").value.trim();
+	    let message = "";
+
+	    if (id === "" && password === "") {
+	        message = "IDとパスワードを入力してください。";
+	    } else if (id === "") {
+	        message = "IDを入力してください。";
+	    } else if (password === "") {
+	        message = "パスワードを入力してください。";
+	    } else if (!/^\d+$/.test(id)) {
+	        message = "IDは数字で入力してください。";
+	    } else if (password.length < 6) {
+	        message = "パスワードは6文字以上で入力してください。";
+	    }
+
+	    if (message !== "") {
+	        alert(message);
+	        return false;
+	    }
+
+	    return true;
+	}
+
+	</script>
+	<script th:if="${msg != null}" th:inline="javascript">
+	/*<![CDATA[*/
+	    alert("[[${msg}]]"); // ここで msg の内容を正しく挿入
+	/*]]>*/
+	</script>
+
+
 </body>
 </html>

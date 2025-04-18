@@ -72,11 +72,7 @@ public class UsercController {
 
 	//ログイン画面
 
-	@RequestMapping("/loginform")
-	public String loginform(Model m) {
-		m.addAttribute("userc", new Userc());
-		return "index";
-	}
+	
 
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
@@ -85,17 +81,17 @@ public class UsercController {
 
 		if (id == null || password == null) {
 			m.addAttribute("msg", "IDとパスワードを入力してください");
-			return "loginform";
+			return "index";
 		}
 
 		if (id == null || id.isEmpty()) {
 			m.addAttribute("msg", "IDを入力してください");
-			return "loginform";
+			return "index";
 		}
 
 		if (password == null || password.isEmpty()) {
 			m.addAttribute("msg", "パスワードを入力してください");
-			return "loginform";
+			return "index";
 		}
 
 		m.addAttribute("id", id);
@@ -105,7 +101,7 @@ public class UsercController {
 
 		if (usercs.isEmpty()) {
 			m.addAttribute("msg", "該当するユーザーが見つかりません");
-			return "loginform";
+			return "index";
 		}
 
 		Userc loginUser = usercs.get(0);
