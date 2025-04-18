@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<link th:href="@{/style/tymleaf.css}" rel="stylesheet">
+
 </head>
 <body>
 	<div th:insert="header :: headerFragment"></div>
-	<h1>社員情報削除（完了）<h1>
-	
-社員情報の削除が完了しました
+	<h1>社員情報削除（完了）</h1>
+		<br>	
+   <p>社員情報の削除が完了しました</p>
 <br>
 <a href="/fourth"><button>メニュー</button></a>
-<a href="/kensaku"><button>検索</button></a>
+<a href="/sixth"><button>検索</button></a>
+<div th:insert="footer :: footerFragment"></div>
 </body>
 </html>

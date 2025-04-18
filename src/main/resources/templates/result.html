@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ユーザー一覧</title>
+    <title>検索結果</title>
 </head>
 <body>
     <div th:insert="header :: headerFragment"></div>
 
-    <h1>ユーザー一覧</h1>
+    <h1>検索結果</h1>
 
     <form th:action="@{/deleteconfirm}" method="post">
         <table border="1">
             <tr>
                 <th>選択</th>
                 <th>ID</th>
-                <th>ユーザー名</th>
+                <th>社員名</th>
             </tr>
             <tr th:each="userc : ${usercs}">
                 <td>
@@ -26,10 +26,12 @@
                 <td th:text="${userc.name}"></td>
             </tr>
         </table>
-
-        <button type="submit">選択したユーザーを削除</button>
+        <br>
+        <button type="submit">削除</button>
     </form>
 
     <p th:if="${msg}" th:text="${msg}" style="color:red;"></p>
+	
+	<div th:insert="footer :: footerFragment"></div>
 </body>
 </html>

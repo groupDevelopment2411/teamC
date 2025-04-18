@@ -12,6 +12,7 @@
 		名前：<input type="text" name="userc">
 		<input type="submit" value="検索">
 	</form>
+	<div th:insert="footer :: footerFragment"></div>
 
 	<script th:inline="javascript">
 	    var loginUserId = /*[[${session.id}]]*/ 0;  // セッションからログイン中のIDを取得

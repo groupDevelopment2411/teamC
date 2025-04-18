@@ -3,8 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<link th:href="@{/style/tymleaf.css}" rel="stylesheet">
 </head>
 <body>
-登録画面
+	<div th:insert="header :: headerFragment"></div>
+	<h1>社員情報登録</h1>
+
+<a href="/fourth"><button>戻る</button></a>
+
+
+<div th:insert="footer :: footerFragment"></div>
 </body>
 </html>

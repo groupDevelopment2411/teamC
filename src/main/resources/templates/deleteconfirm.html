@@ -17,7 +17,7 @@
     <!-- 削除確認フォーム -->
     <form action="/delete" method="post" onsubmit="return checkBeforeSubmit()">
         <div th:each="id : ${selectedIds}">
-            <input type="text" name="selectedIds" th:value="${id}" readonly>
+            社員ID<input type="text" name="selectedIds" th:value="${id}" readonly>
         </div>
         <input type="submit" value="削除">
     </form>
@@ -32,7 +32,7 @@
     <form action="/deleteconfirm" method="post">
         <input type="hidden" name="returnTo" th:value="${returnTo}" />
     </form>
-
+	<div th:insert="footer :: footerFragment"></div>
     <!-- JavaScript -->
     <script th:inline="javascript">
         var loginUserId = /*[[${session.id}]]*/ 0;

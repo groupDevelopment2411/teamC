@@ -1,7 +1,6 @@
 
 package com.example.demo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -53,35 +52,5 @@ public interface UsercMapper {
 	})
 	void deleteUsercsByIds(@Param("ids") List<Integer> ids);
 
-	
-	    @Select("""
-	        <script>
-	        SELECT * FROM usercs
-	        <where>
-	            <if test="id != null">
-	                AND id = #{id}
-	            </if>
-	            <if test="name != null and name != ''">
-	                AND name LIKE CONCAT('%', #{name}, '%')
-	            </if>
-	            <if test="password != null and password != '' and password == confirmPassword">
-	                AND password = #{password}
-	            </if>
-	            <if test="startDate != null">
-	                AND start_date &gt;= #{startDate}
-	            </if>
-	            <if test="endDate != null">
-	                AND end_date &lt;= #{endDate}
-	            </if>
-	        </where>
-	        </script>
-	        """)
-	    List<Userc> searchUsers(@Param("id") Integer id,
-	                            @Param("name") String name,
-	                            @Param("password") String password,
-	                            @Param("confirmPassword") String confirmPassword,
-	                            @Param("startDate") LocalDate startDate,
-	                            @Param("endDate") LocalDate endDate);
-	
 }
 
