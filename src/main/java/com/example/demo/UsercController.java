@@ -73,49 +73,40 @@ public class UsercController {
 	//ログイン画面
 
 	
-
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
-			@RequestParam("id") String id,
-			@RequestParam("password") String password) {
+	        @RequestParam("id") String id,
+	        @RequestParam("password") String password) {
 
-		if (id == null || password == null) {
-			m.addAttribute("msg", "IDとパスワードを入力してください");
-			return "index";
-		}
+	    if (id == null || password == null || id.isEmpty() || password.isEmpty()) {
+	        m.addAttribute("msg", "IDとパスワードを入力してください");
+	        m.addAttribute("id", id); // 入力されたIDを保持
+	        m.addAttribute("password", password); // 入力されたパスワードを保持
+	        return "index"; // ログイン画面に戻る
+	    }
 
-		if (id == null || id.isEmpty()) {
-			m.addAttribute("msg", "IDを入力してください");
-			return "index";
-		}
+	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-		if (password == null || password.isEmpty()) {
-			m.addAttribute("msg", "パスワードを入力してください");
-			return "index";
-		}
+	    if (usercs.isEmpty()) {
+	        m.addAttribute("msg", "該当するユーザーが見つかりません");
+	        m.addAttribute("id", id); // 入力されたIDを保持
+	        m.addAttribute("password", password); // 入力されたパスワードを保持
+	        return "index"; // ログイン画面に戻る
+	    }
 
-		m.addAttribute("id", id);
-		m.addAttribute("password", password);
+	    Userc loginUser = usercs.get(0);
+	    session.setAttribute("id", loginUser.getId());
+	    session.setAttribute("password", loginUser.getPassword());
+	    session.setAttribute("name", loginUser.getName());
 
-		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	    String loginTime = LocalDateTime.now().format(formatter);
+	    session.setAttribute("loginTime", loginTime);
 
-		if (usercs.isEmpty()) {
-			m.addAttribute("msg", "該当するユーザーが見つかりません");
-			return "index";
-		}
-
-		Userc loginUser = usercs.get(0);
-		session.setAttribute("id", loginUser.getId());
-		session.setAttribute("password", loginUser.getPassword());
-		session.setAttribute("name", loginUser.getName());
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String loginTime = LocalDateTime.now().format(formatter);
-		session.setAttribute("loginTime", loginTime);
-
-		m.addAttribute("usercs", usercs);
-		return "mainmenu";
+	    m.addAttribute("usercs", usercs);
+	    return "mainmenu"; // メインメニュー画面に遷移
 	}
+
 
 	//削除検索入力チェック
 

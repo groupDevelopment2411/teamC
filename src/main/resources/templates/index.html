@@ -11,9 +11,19 @@
 		ID: <input type="text" name="id" id="id" th:value="${id}"/><br>
 		パスワード: <input type="password" name="password" id="password" th:value="${password}"><br>
 		<input type="submit" value="ログイン">
-		<a href="third">戻る</a>
 	</form>
+
 	<div th:insert="footer :: footerFragment"></div>
+
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var msg = /*[[${msg}]]*/ ''; // msgの値が空なら空文字をデフォルト値として設定
+
+	    if (msg) {
+	        alert(msg); // msgが存在する場合、アラートで表示
+	    }
+	/*]]>*/
+	</script>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	function validateForm() {
@@ -40,14 +50,8 @@
 
 	    return true;
 	}
-
-	</script>
-	<script th:if="${msg != null}" th:inline="javascript">
-	/*<![CDATA[*/
-	    alert("[[${msg}]]"); // ここで msg の内容を正しく挿入
 	/*]]>*/
 	</script>
-
 
 </body>
 </html>
