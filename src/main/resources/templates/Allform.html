@@ -11,31 +11,12 @@
     <h1>社員情報検索</h1>
 	<a href="/fourth"><button>メニュー</button></a>
 	
-	
-	<form action="/All" method="post" onsubmit="return validateForm()">  
-	    <input type="text" name="userc" id="userc" th:value="${userc}"><br>
-	    <input type="submit" value="検索する">
-	    <p th:if="${msg}" th:text="${msg}" style="color:red;"></p>
+	<br>
+	<form action="/All" method="post">  
+	    
+	    <input type="submit" value="全件検索する">
+	   
 	</form>
-	<div th:insert="footer :: footerFragment"></div>
-	<!-- msgがある場合のみ alert を表示 -->
-	<script th:if="${msg != null}" th:inline="javascript">
-	/*<![CDATA[*/
-	    alert("[[${msg}]]");
-	/*]]>*/
-	</script>
-
-	<script>
-	function validateForm() {
-	    const userc = document.getElementById("userc").value.trim();
-	    if (userc === "") {
-	        alert("検索する内容を入力してください");
-	        return false;
-	    }
-	    return true;
-	}
-	</script>
-
-
+	
 </body>
 </html>

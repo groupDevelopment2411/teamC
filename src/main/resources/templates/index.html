@@ -38,7 +38,7 @@
 	    } else if (password === "") {
 	        message = "パスワードを入力してください。";
 	    } else if (!/^\d+$/.test(id)) {
-	        message = "IDは数字で入力してください。";
+	        message = "IDは半角数字で入力してください。";
 	    } else if (password.length < 6) {
 	        message = "パスワードは6文字以上で入力してください。";
 	    }

@@ -190,10 +190,6 @@ public class UsercController {
 		m.addAttribute("selectedIds", selectedIds);
 		return "deleteconfirm";
 	}
-
-	
-
-	
 	
 	//削除画面
 	@PostMapping("/delete")
@@ -248,11 +244,7 @@ public class UsercController {
 	//全件検索画面
 	@RequestMapping("/All")
 	public String getAllUsercs(Model m, @RequestParam(name = "userc", required = false) String userc) {
-		if (userc == null || userc.trim().isEmpty()) {
-			m.addAttribute("msg", "検索する内容を入力してください");
-			m.addAttribute("userc", userc); // 入力値を保持
-			return "Allform";
-		}
+		
 
 		m.addAttribute("userc", userc);
 
