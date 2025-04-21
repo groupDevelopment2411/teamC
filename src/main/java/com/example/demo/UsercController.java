@@ -88,9 +88,9 @@ public class UsercController {
 
 		if (usercs.isEmpty()) {
 			m.addAttribute("msg", "該当するユーザーが見つかりません");
-			m.addAttribute("id", id); // 入力されたIDを保持
-			m.addAttribute("password", password); // 入力されたパスワードを保持
-			return "index"; // ログイン画面に戻る
+			m.addAttribute("id", id); 
+			m.addAttribute("password", password); 
+			return "index"; 
 		}
 
 		Userc loginUser = usercs.get(0);
@@ -103,7 +103,7 @@ public class UsercController {
 		session.setAttribute("loginTime", loginTime);
 
 		m.addAttribute("usercs", usercs);
-		return "mainmenu"; // メインメニュー画面に遷移
+		return "mainmenu"; 
 	}
 
 	//削除検索入力チェック
@@ -211,7 +211,7 @@ public class UsercController {
 		Object sessionIdObj = session.getAttribute("id");
 		if (sessionIdObj == null) {
 			m.addAttribute("msg", "ログインしていません。");
-			return "loginform"; // ログイン画面に戻る
+			return "index";
 		}
 
 		int loggedInUserId;
@@ -219,7 +219,7 @@ public class UsercController {
 			loggedInUserId = Integer.parseInt(sessionIdObj.toString());
 		} catch (NumberFormatException e) {
 			m.addAttribute("msg", "ログイン情報が不正です。");
-			return "loginform";
+			return "index";
 		}
 
 		// 削除対象のIDリストにログイン中のIDが含まれていないか確認
