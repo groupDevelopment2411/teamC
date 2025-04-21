@@ -72,62 +72,68 @@ public class UsercController {
 
 	//ログイン画面
 
-	
 	@PostMapping("/sendlogin")
 	public String searchIdAndPassword(Model m,
-	        @RequestParam("id") String id,
-	        @RequestParam("password") String password) {
+			@RequestParam("id") String id,
+			@RequestParam("password") String password) {
 
-	    if (id == null || password == null || id.isEmpty() || password.isEmpty()) {
-	        m.addAttribute("msg", "IDとパスワードを入力してください");
-	        m.addAttribute("id", id); // 入力されたIDを保持
-	        m.addAttribute("password", password); // 入力されたパスワードを保持
-	        return "index"; // ログイン画面に戻る
-	    }
+		if (id == null || password == null || id.isEmpty() || password.isEmpty()) {
+			m.addAttribute("msg", "IDとパスワードを入力してください");
+			m.addAttribute("id", id); // 入力されたIDを保持
+			m.addAttribute("password", password); // 入力されたパスワードを保持
+			return "index"; // ログイン画面に戻る
+		}
 
-	    List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
+		List<Userc> usercs = service.findUsercByIdAndPassword(id, password);
 
-	    if (usercs.isEmpty()) {
-	        m.addAttribute("msg", "該当するユーザーが見つかりません");
-	        m.addAttribute("id", id); // 入力されたIDを保持
-	        m.addAttribute("password", password); // 入力されたパスワードを保持
-	        return "index"; // ログイン画面に戻る
-	    }
+		if (usercs.isEmpty()) {
+			m.addAttribute("msg", "該当するユーザーが見つかりません");
+			m.addAttribute("id", id); // 入力されたIDを保持
+			m.addAttribute("password", password); // 入力されたパスワードを保持
+			return "index"; // ログイン画面に戻る
+		}
 
-	    Userc loginUser = usercs.get(0);
-	    session.setAttribute("id", loginUser.getId());
-	    session.setAttribute("password", loginUser.getPassword());
-	    session.setAttribute("name", loginUser.getName());
+		Userc loginUser = usercs.get(0);
+		session.setAttribute("id", loginUser.getId());
+		session.setAttribute("password", loginUser.getPassword());
+		session.setAttribute("name", loginUser.getName());
 
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	    String loginTime = LocalDateTime.now().format(formatter);
-	    session.setAttribute("loginTime", loginTime);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String loginTime = LocalDateTime.now().format(formatter);
+		session.setAttribute("loginTime", loginTime);
 
-	    m.addAttribute("usercs", usercs);
-	    return "mainmenu"; // メインメニュー画面に遷移
+		m.addAttribute("usercs", usercs);
+		return "mainmenu"; // メインメニュー画面に遷移
 	}
-
 
 	//削除検索入力チェック
 
 	@PostMapping("/kensakuform")
-	public String searchUsercById(Model m, @RequestParam(value = "id", required = false) Integer id) {
+	public String searchUsercById(
+			Model m,
+			@RequestParam(value = "id", required = false) Integer id,
+			HttpSession session) {
 
-	    if (id == null) {
-	        m.addAttribute("msg", "IDを入力してください");
-	        return "kensaku";
-	    }
+		if (id == null) {
+			m.addAttribute("msg", "IDを入力してください");
+			return "kensaku";
+		}
 
-	    List<Userc> usercs = service.searchUsercById(id);
+		List<Userc> usercs = service.searchUsercById(id);
 
-	    if (usercs.isEmpty()) {
-	        m.addAttribute("msg", "該当するユーザーが見つかりません");
-	        m.addAttribute("inputId", id); // 入力値を渡す
-	        return "kensaku";
-	    }
+		if (usercs.isEmpty()) {
+			m.addAttribute("msg", "該当するユーザーが見つかりません");
+			m.addAttribute("inputId", id);
 
-	    m.addAttribute("selectedIds", usercs.get(0).getId());
-	    return "deleteconfirm";
+			if (session.getAttribute("id") == null) {
+
+			}
+
+			return "kensaku";
+		}
+
+		m.addAttribute("selectedIds", usercs.get(0).getId());
+		return "deleteconfirm";
 	}
 
 	//削除検索
@@ -159,8 +165,6 @@ public class UsercController {
 	}
 
 	//削除確認画面
-	
-	
 
 	@GetMapping("/deleteconfirm")
 	public String showDeleteConfirm(
@@ -182,15 +186,15 @@ public class UsercController {
 	}
 
 	@PostMapping("/deleteconfirm")
-	public String showDeleteConfirm (
-		    @RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
-		    Model m) {
+	public String showDeleteConfirm(
+			@RequestParam(value = "selectedIds", required = false) List<Integer> selectedIds,
+			Model m) {
 		List<Userc> selectedUsercs = service.findUsersByIds(selectedIds);
 		m.addAttribute("selectedUsercs", selectedUsercs);
 		m.addAttribute("selectedIds", selectedIds);
 		return "deleteconfirm";
 	}
-	
+
 	//削除画面
 	@PostMapping("/delete")
 	public String deleteUsers(
@@ -244,7 +248,6 @@ public class UsercController {
 	//全件検索画面
 	@RequestMapping("/All")
 	public String getAllUsercs(Model m, @RequestParam(name = "userc", required = false) String userc) {
-		
 
 		m.addAttribute("userc", userc);
 
